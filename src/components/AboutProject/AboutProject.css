@@ -1,0 +1,48 @@
+.about-project {
+  min-height: 608px;
+  padding: 110px 70px;
+}
+
+.about-project__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  margin: 0;
+}
+
+.about-project__line {
+  margin: 23px 0 0;
+}
+
+.about-project__text {
+  display: flex;
+  gap: 40px;
+  margin-top: 70px;
+}
+
+.about-project__column {
+  width: 50%;
+}
+
+.about-project__subtitle {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  margin: 0;
+}
+
+.about-project__paragrath {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+  margin: 26px 0 0;
+}
+
