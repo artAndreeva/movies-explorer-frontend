@@ -9,14 +9,19 @@ const AboutProject = () => {
       <div className="about-project__text">
         <div className="about-project__column">
           <h3 className="about-project__subtitle">Дипломный проект включал 5 этапов</h3>
-          <p className="about-project__paragrath">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
+          <p className="about-project__description">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
         </div>
         <div className="about-project__column">
           <h3 className="about-project__subtitle">На выполнение диплома ушло 5 недель</h3>
-          <p className="about-project__paragrath">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
+          <p className="about-project__description">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
         </div>
       </div>
-      <div className="about-project__timeline"></div>
+      <div className="about-project__timeline">
+        <div className="about-project__item about-project__item_top-left"><span>1 неделя</span></div>
+        <div className="about-project__item about-project__item_bottom-left"><span lang="en">Back-end</span></div>
+        <div className="about-project__item about-project__item_top-right"><span>4 недели</span></div>
+        <div className="about-project__item about-project__item_bottom-right"><span lang="en">Front-end</span></div>
+      </div>
     </section>
   );
 }

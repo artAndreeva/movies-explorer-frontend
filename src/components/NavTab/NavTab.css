@@ -1,4 +1,4 @@
-.navigation {
+.navtab {
   background-color: #F5F5F5;
   min-height: 66px;
   display: flex;
@@ -6,7 +6,7 @@
   justify-content: center;
 }
 
-.navigation__list {
+.navtab__list {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -14,13 +14,13 @@
   gap: 40px;
 }
 
-.navigation__item {
+.navtab__item {
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
 }
 
-.navigation__link {
+.navtab__link {
   color: #000000;
 }

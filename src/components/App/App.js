@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -12,13 +12,15 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
 const App = () => {
+  const { pathname } = useLocation();
   return (
     <div className="content">
       <div className="page">
 
-        <Header/>
+      {pathname === '/' || pathname === '/movies' || pathname === '/saved-movies' || pathname === '/profile' ? <Header/> : null}
 
         <Routes>
+
           <Route path='/' element={
             <Main/>
           }/>
@@ -43,13 +45,13 @@ const App = () => {
             <Register/>
           }/>
 
-          <Route path='/*' element={
+          <Route path='*' element={
             <NotFound/>
           }/>
 
         </Routes>
 
-        <Footer/>
+        {pathname === '/' || pathname === '/movies' || pathname === '/saved-movies' ? <Footer/> : null}
 
       </div>
     </div>

@@ -4,7 +4,7 @@ import './Profile.css';
 const Profile = () => {
   return (
     <main className="">
-      Profile
+      
     </main>
   );
 }

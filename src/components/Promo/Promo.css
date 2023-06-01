@@ -1,9 +1,10 @@
 .promo {
   background-color: #465DFF;
-  min-height: 524px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 82px 0 122px;
   position: relative;
 }
 
@@ -17,11 +18,11 @@
   color: #FFFFFF;
   width: 730px;
   margin: 0;
+  position: absolute;
 }
 
 .promo__logo {
-  background-image: url(../../images/promo_logo.svg);
+  background-image: url(../../images/promo-logo.svg);
   width: 320px;
   height: 320px;
-  position: absolute;
 }
