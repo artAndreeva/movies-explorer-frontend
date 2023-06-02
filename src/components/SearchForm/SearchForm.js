@@ -1,11 +1,12 @@
 import React from 'react';
 import './SearchForm.css';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 const SearchForm = () => {
   return (
-    <div className="">
-
-    </div>
+    <section className="search-form">
+      <FilterCheckbox/>
+    </section>
   );
 }
 

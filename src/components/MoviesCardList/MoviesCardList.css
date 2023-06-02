@@ -1,0 +1,15 @@
+.movies-card {
+  padding: 70px 70px 0;
+  box-sizing: border-box;
+}
+
+.movies-card__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 360px);
+  justify-content: center;
+  row-gap: 60px;
+  column-gap: 30px;
+}

@@ -1,19 +1,15 @@
 import React from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import MoviesCard from '../MoviesCard/MoviesCard';
+import movies from '../../utils/movies';
 
 const Movies = () => {
+
   return (
-    <main className="">
+    <main className="movies">
       <SearchForm/>
-      <FilterCheckbox/>
-      <Preloader/>
-      <MoviesCardList/>
-      <MoviesCard/>
+      <MoviesCardList movies={movies}/>
     </main>
   );
 }
