@@ -1,3 +1,17 @@
 .search-form {
-  padding: 70px 70px 55px;
+  padding: 70px 70px 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.search-form__form {
+  padding-bottom: 43px;
+  border-bottom: 1px solid rgba(170, 170, 170, .2);;
+}
+
+.search-form__search {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-bottom: 26px;
 }

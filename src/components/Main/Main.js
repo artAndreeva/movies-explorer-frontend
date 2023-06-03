@@ -9,7 +9,7 @@ import Portfolio from '../Portfolio/Portfolio';
 
 const Main = () => {
   return (
-    <main className="">
+    <main className="main">
       <Promo/>
       <NavTab/>
       <AboutProject/>

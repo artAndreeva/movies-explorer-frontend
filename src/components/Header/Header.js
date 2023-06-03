@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
-import Logo from '../../images/header-logo.svg';
+import Logo from '../Logo/Logo';
 import './Header.css';
 
 const Header = () => {
@@ -9,13 +9,13 @@ const Header = () => {
   return (
     <header className={pathname === '/' ? "header header_blue" : "header"}>
       <div className="header__nav">
-        <Link to="/"><img src={Logo} alt="Логотип" className="header__logo"/></Link>
+        <Logo/>
         {pathname === '/' ? null : <Navigation/> }
       </div>
       {pathname === '/'
       ? <div className="header__auth">
-          <Link to="/signup" className="header__link"><button className="header__register">Регистрация</button></Link>
-          <Link to="/signin" className="header__link"><button className="header__login">Войти</button></Link>
+          <Link to="/signup" className="header__link"><span className="header__register">Регистрация</span></Link>
+          <Link to="/signin" className="header__link"><span className="header__login">Войти</span></Link>
         </div>
       : <Link to="/profile" className="header__link"><button className="header__profile">Аккаунт</button></Link>
       }

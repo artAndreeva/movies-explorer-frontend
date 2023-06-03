@@ -3,8 +3,8 @@ import './Profile.css';
 
 const Profile = () => {
   return (
-    <main className="">
-      
+    <main className="profile">
+
     </main>
   );
 }

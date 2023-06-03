@@ -3,16 +3,16 @@ import './NavTab.css';
 
 const NavTab = () => {
   return (
-    <section className="navtab">
-      <ul className="navtab__list">
-        <li className="navtab__item">
-          <a href="#about-project" className="navtab__link">О проекте</a>
+    <section className="nav-tab">
+      <ul className="nav-tab__list">
+        <li className="nav-tab__item">
+          <a href="#about-project" className="nav-tab__link">О проекте</a>
         </li>
-        <li className="navtab__item">
-          <a href="#techs" className="navtab__link">Технологии</a>
+        <li className="nav-tab__item">
+          <a href="#techs" className="nav-tab__link">Технологии</a>
         </li>
-        <li className="navtab__item">
-          <a href="#about-me" className="navtab__link">Студент</a>
+        <li className="nav-tab__item">
+          <a href="#about-me" className="nav-tab__link">Студент</a>
         </li>
       </ul>
     </section>
