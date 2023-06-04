@@ -7,10 +7,10 @@ const Navigation = () => {
     <nav className="navigation">
       <ul className="navigation__list">
         <li className="navigation__item">
-          <NavLink to="/movies" className={({isActive}) => `navigation__link ${isActive ? "navigation__link_active" : ""}`}>Фильмы</NavLink>
+          <NavLink to="/movies" className={({isActive}) => `navigation__link link ${isActive ? "navigation__link_active" : ""}`}>Фильмы</NavLink>
         </li>
         <li className="navigation__item">
-          <NavLink to="/saved-movies" className={({isActive}) => `navigation__link ${isActive ? "navigation__link_active" : ""}`}>Сохранённые фильмы</NavLink>
+          <NavLink to="/saved-movies" className={({isActive}) => `navigation__link link ${isActive ? "navigation__link_active" : ""}`}>Сохранённые фильмы</NavLink>
         </li>
       </ul>
     </nav>

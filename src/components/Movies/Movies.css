@@ -6,10 +6,9 @@
 }
 
 .movies__button {
-  all: unset;
+  background-color: #fff;
   width: 320px;
   height: 36px;
-  cursor: pointer;
   border: 1px solid #E8E8E8;
   border-radius: 5px;
   display: flex;

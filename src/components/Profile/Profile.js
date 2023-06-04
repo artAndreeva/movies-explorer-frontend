@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Profile = () => {
 
   const [isRedact, setIsRedact] = useState(false);
+  const [values, setValues] = useState('');
   const navigate = useNavigate();
 
 
@@ -13,22 +14,18 @@ const Profile = () => {
     e.preventDefault();
   }
 
-  const handleChange = () => {
-
+  const handleChange = (e) => {
+    const { value } = e.target
+    setValues(value)
   }
 
   const handleRedact = () => {
-    setIsRedact(true)
-  }
-
-  const handleButton = () => {
-    setIsRedact(false)
+    setIsRedact(!isRedact)
   }
 
   const handleExit = () => {
     navigate('/', { replace: true });
   }
-
 
   return (
     <main className="profile">
@@ -38,11 +35,11 @@ const Profile = () => {
           <div className="profile__fieldset">
             <div className="profile__field">
               <label className="profile__label" htmlFor="name">Имя</label>
-              <input className="profile__input" id="name" name="name" value="Виталий" onChange={handleChange} onClick={handleRedact}/>
+              <input className="profile__input" id="name" name="name" value={values || 'Виталий'} onChange={handleChange} disabled={!isRedact}/>
             </div>
             <div className="profile__field">
               <label className="profile__label" htmlFor="email">E-mail</label>
-              <input className="profile__input" id="email" name="email" value="pochta@yandex.ru" onChange={handleChange} onClick={handleRedact}/>
+              <input className="profile__input" id="email" name="email" value="pochta@yandex.ru" onChange={handleChange} disabled={!isRedact}/>
             </div>
           </div>
           <div className="profile__buttons">
@@ -50,12 +47,12 @@ const Profile = () => {
           ?
             <>
               <span className="profile__api-error">Ошибка API</span>
-              <button className="profile__button" onClick={handleButton}>Сохранить</button>
+              <button className="profile__button button" onClick={handleRedact}>Сохранить</button>
             </>
           :
             <>
-              <span className="profile__edit" onClick={handleRedact}>Редактировать</span>
-              <span className="profile__exit" onClick={handleExit}>Выйти из аккаунта</span>
+              <span className="profile__edit link" onClick={handleRedact}>Редактировать</span>
+              <span className="profile__exit link" onClick={handleExit}>Выйти из аккаунта</span>
             </>
           }
           </div>

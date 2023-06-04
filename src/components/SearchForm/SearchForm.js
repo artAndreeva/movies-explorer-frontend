@@ -22,7 +22,7 @@ const SearchForm = () => {
           type='text'
           placeholder='Фильм'
         />
-        <button className='search-form__button'>Поиск</button>
+        <button className='search-form__button button'>Поиск</button>
         </div>
         <FilterCheckbox/>
       </form>

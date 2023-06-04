@@ -9,8 +9,8 @@ const Footer = () => {
       <div className="footer__info">
         <p className="footer__copyright">&copy; {new Date().getFullYear()}</p>
         <ul className="footer__list">
-          <li className="footer__item"><a href="https://practicum.yandex.ru/" className="footer__link" target="_blank" rel="noopener noreferrer">Яндекс.Практикум</a></li>
-          <li className="footer__item" lang="en"><a href="https://github.com/" className="footer__link" target="_blank" rel="noopener noreferrer">Github</a></li>
+          <li className="footer__item"><a href="https://practicum.yandex.ru/" className="footer__link link" target="_blank" rel="noopener noreferrer">Яндекс.Практикум</a></li>
+          <li className="footer__item" lang="en"><a href="https://github.com/" className="footer__link link" target="_blank" rel="noopener noreferrer">Github</a></li>
         </ul>
       </div>
     </footer>

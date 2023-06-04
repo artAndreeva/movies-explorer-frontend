@@ -53,7 +53,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
                 id="email"
                 name="email"
                 required
-                minLength="2"
+                minLength="6"
                 maxLength="40"
                 value={values.email || ''}
                 onChange={handleChange}
@@ -68,7 +68,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
                 id="password"
                 name="password"
                 required
-                minLength="2"
+                minLength="8"
                 maxLength="40"
                 value={values.password || ''}
                 onChange={handleChange}
@@ -78,11 +78,11 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
           </fieldset>
           <div className="auth-form__submit">
             <span className="auth-form__api-error">Ошибка API</span>
-            <button className="auth-form__button" disabled={!isValid}>{buttonText}</button>
+            <button className="auth-form__button button" disabled={!isValid}>{buttonText}</button>
           </div>
         </form>
         <div className="auth-form__text">
-          <span className="auth-form__question">{questionText} <Link to={registerPath} className="auth-form__to-register">{registerText}</Link></span>
+          <span className="auth-form__question">{questionText} <Link to={registerPath} className="auth-form__to-register link">{registerText}</Link></span>
         </div>
       </div>
   );

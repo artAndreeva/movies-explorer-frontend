@@ -14,10 +14,10 @@ const Header = () => {
       </div>
       {pathname === '/'
       ? <div className="header__auth">
-          <Link to="/signup" className="header__link"><span className="header__register">Регистрация</span></Link>
-          <Link to="/signin" className="header__link"><span className="header__login">Войти</span></Link>
+          <Link to="/signup" className="header__link link"><span className="header__register">Регистрация</span></Link>
+          <Link to="/signin" className="header__link button"><span className="header__login">Войти</span></Link>
         </div>
-      : <Link to="/profile" className="header__link"><button className="header__profile">Аккаунт</button></Link>
+      : <Link to="/profile" className="header__link"><span className="header__profile button">Аккаунт</span></Link>
       }
     </header>
   );

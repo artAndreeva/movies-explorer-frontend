@@ -41,7 +41,7 @@
 }
 
 .search-form__button {
-  all: unset;
+  border: none;
   width: 100px;
   height: 52px;
   background-color: #FF6838;
@@ -56,6 +56,5 @@
   text-align: center;
   color: #FFFFFF;
   position: absolute;
-  cursor: pointer;
   margin-right: 10px;
 }

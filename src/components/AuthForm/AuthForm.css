@@ -82,7 +82,7 @@
 }
 
 .auth-form__button {
-  all: unset;
+  border: none;
   width: 396px;
   height: 45px;
   background-color: #FF6838;
@@ -95,7 +95,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   margin-bottom: 16px;
 }
 

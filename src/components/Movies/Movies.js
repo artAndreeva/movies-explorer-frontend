@@ -10,7 +10,7 @@ const Movies = () => {
     <main className="movies">
       <SearchForm/>
       <MoviesCardList movies={movies}/>
-      <button className="movies__button">Ещё</button>
+      <button className="movies__button button">Ещё</button>
     </main>
   );
 }
