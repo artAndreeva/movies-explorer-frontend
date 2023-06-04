@@ -1,4 +1,124 @@
 .profile {
-  height: 100vh;
+  min-height: calc(100vh - 74px);
   display: flex;
+}
+
+.profile__container {
+  width: 410px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile__greeting {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+  margin: 0 0 120px;
+}
+
+.profile__form {
+  width: 100%;
+  min-height: 332px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profile__fieldset {
+  all: unset;
+}
+
+.profile__field {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.profile__field:last-of-type {
+  border-bottom: none;
+}
+
+.profile__label {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #000000;
+}
+
+.profile__input {
+  all: unset;
+  height: 48px;
+  width: 80%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+  color: #000000;
+}
+
+.profile__api-error {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #FF004C;
+  margin: 0 0 20px;
+  display: block;
+}
+
+.profile__button {
+  all: unset;
+  width: 100%;
+  height: 45px;
+  background-color: #FF6838;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.profile__button:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  pointer-events: none;
+  user-select: none;
+}
+
+.profile__edit {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  margin-bottom:16px;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+}
+
+.profile__exit {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #EE3465;
+  cursor: pointer;
+  text-align: center;
+  display: block;
 }

@@ -7,7 +7,7 @@ const AboutMe = () => {
     <section className="about-me" id="about-me">
       <h2 className="about-me__title">Студент</h2>
       <hr className="about-me__line"></hr>
-      <div div className="about-me__info">
+      <div className="about-me__info">
         <div className="about-me__text">
           <h3 className="about-me__name">Светлана</h3>
           <p className="about-me__resume">Фронтенд-разработчик, 39 лет</p>
