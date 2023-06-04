@@ -1,7 +1,5 @@
 import React from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import FormField from '../FormField/FormField';
-import FormButton from '../FormButton/FormButton';
 import './SearchForm.css';
 
 const SearchForm = () => {
@@ -19,15 +17,12 @@ const SearchForm = () => {
         noValidate
       >
         <div className="search-form__search">
-          <FormField
-            inputClass={'search-form__input'}
-            inputType={'text'}
-            inputPlaceholder={'Фильм'}
-          />
-          <FormButton
-            buttonClass={'search-form__button'}
-            buttonText={'Поиск'}
-          />
+        <input
+          className='search-form__input'
+          type='text'
+          placeholder='Фильм'
+        />
+        <button className='search-form__button'>Поиск</button>
         </div>
         <FilterCheckbox/>
       </form>

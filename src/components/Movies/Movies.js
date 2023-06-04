@@ -2,7 +2,6 @@ import React from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import FormButton from '../FormButton/FormButton';
 import movies from '../../utils/movies';
 
 const Movies = () => {
@@ -11,10 +10,7 @@ const Movies = () => {
     <main className="movies">
       <SearchForm/>
       <MoviesCardList movies={movies}/>
-      <FormButton
-        buttonClass={'movies__button'}
-        buttonText={'Ещё'}
-      />
+      <button className="movies__button">Ещё</button>
     </main>
   );
 }
