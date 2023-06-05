@@ -45,15 +45,15 @@ const Profile = () => {
           <div className="profile__buttons">
           {isRedact
           ?
-            <>
-              <span className="profile__api-error">Ошибка API</span>
+            <div className="profile__buttons">
+              {/* <span className="profile__api-error">Ошибка API</span> */}
               <button className="profile__button button" onClick={handleRedact}>Сохранить</button>
-            </>
+            </div>
           :
-            <>
-              <span className="profile__edit link" onClick={handleRedact}>Редактировать</span>
-              <span className="profile__exit link" onClick={handleExit}>Выйти из аккаунта</span>
-            </>
+            <div className="profile__buttons">
+              <button className="profile__edit link" onClick={handleRedact}>Редактировать</button>
+              <button className="profile__exit link" onClick={handleExit}>Выйти из аккаунта</button>
+            </div>
           }
           </div>
         </form>

@@ -6,7 +6,7 @@ import './Logo.css';
 const Logo = () => {
   return (
     <>
-      <Link to="/"><img src={LogoImg} alt="Логотип" className="logo"/></Link>
+      <Link to="/" className="logo__link"><img src={LogoImg} alt="Логотип" className="logo__img"/></Link>
     </>
   );
 }

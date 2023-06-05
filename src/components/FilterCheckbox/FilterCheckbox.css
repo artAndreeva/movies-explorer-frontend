@@ -27,7 +27,7 @@
   background-color: #EBEBEB;
 }
 
-.filter-checkbox__pseudo-item:before {
+.filter-checkbox__pseudo-item::before {
   content: "";
   position: absolute;
   width: 16px;
@@ -41,8 +41,8 @@
   justify-content: right;
 }
 
-.filter-checkbox__item:focus + .filter-checkbox__pseudo-item {
-  /* outline: 1px solid #e2e2e2; */
+.filter-checkbox__item:focus-visible + .filter-checkbox__pseudo-item {
+   outline: 2px solid #000000;
 }
 
 .filter-checkbox__label-text {

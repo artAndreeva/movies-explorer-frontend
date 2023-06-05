@@ -2,6 +2,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .not-found__container {
@@ -36,5 +37,8 @@
   text-align: center;
   color: #FF6838;
   margin: 0 0 60px;
-  cursor: pointer;
+  width: 70px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
 }

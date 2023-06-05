@@ -73,7 +73,6 @@
   text-align: center;
   color: #FF004C;
   margin: 0 0 20px;
-  display: block;
 }
 
 .profile__button {
@@ -87,9 +86,6 @@
   font-size: 14px;
   line-height: 17px;
   color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .profile__button:disabled {
@@ -99,23 +95,34 @@
   user-select: none;
 }
 
+.profile__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .profile__edit {
+  background-color: transparent;
+  border: none;
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
   color: #000000;
   margin-bottom:16px;
-  text-align: center;
-  display: block;
+  padding: 0;
+  width: 130px;
 }
 
 .profile__exit {
+  background-color: transparent;
+  border: none;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
   color: #EE3465;
-  text-align: center;
-  display: block;
+  padding: 0;
+  width: 130px;
 }

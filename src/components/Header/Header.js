@@ -17,7 +17,7 @@ const Header = () => {
           <Link to="/signup" className="header__link link"><span className="header__register">Регистрация</span></Link>
           <Link to="/signin" className="header__link button"><span className="header__login">Войти</span></Link>
         </div>
-      : <Link to="/profile" className="header__link"><span className="header__profile button">Аккаунт</span></Link>
+      : <Link to="/profile" className="header__link button"><span className="header__profile">Аккаунт</span></Link>
       }
     </header>
   );

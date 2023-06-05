@@ -18,7 +18,7 @@ const SearchForm = () => {
       >
         <div className="search-form__search">
         <input
-          className='search-form__input'
+          className='search-form__input input'
           type='text'
           placeholder='Фильм'
         />

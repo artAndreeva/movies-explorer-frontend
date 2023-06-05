@@ -77,7 +77,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
             </div>
           </fieldset>
           <div className="auth-form__submit">
-            <span className="auth-form__api-error">Ошибка API</span>
+            {/* <span className="auth-form__api-error">Ошибка API</span> */}
             <button className="auth-form__button button" disabled={!isValid}>{buttonText}</button>
           </div>
         </form>

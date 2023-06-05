@@ -1,4 +1,12 @@
-.logo {
+.logo__link {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo__img {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
