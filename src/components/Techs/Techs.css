@@ -46,6 +46,11 @@
   margin: 0 0 100px;
 }
 
+.techs__container {
+  display: flex;
+  justify-content: center;
+}
+
 .techs__list {
   list-style: none;
   margin: 0;
@@ -69,4 +74,62 @@
   line-height: 17px;
   letter-spacing: -0.04em;
   color: #000000;
+}
+
+
+@media screen and (max-width: 768px) {
+  .techs {
+    padding: 90px 50px;
+  }
+  .techs__line {
+    margin-bottom: 80px;
+  }
+  .techs__subtitle {
+    margin-bottom: 22px;
+  }
+  .techs__description {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 83px;
+  }
+  .techs__item {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .techs {
+    padding: 58px 18px;
+    background-color: #FFFFFF;
+  }
+  .techs__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 28px;
+  }
+  .techs__line {
+    margin-bottom: 60px;
+  }
+  .techs__subtitle {
+    font-size: 30px;
+    line-height: 36px;
+    margin-bottom: 24px;
+  }
+  .techs__description {
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 50px;
+    max-width: 292px;
+  }
+  .techs__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    width: 178px;
+  }
 }

@@ -24,3 +24,12 @@
 .nav-tab__link {
   color: #000000;
 }
+
+@media screen and (max-width: 320px) {
+  .nav-tab__list {
+    gap: 24px;
+  }
+  .nav-tab__item {
+    font-size: 11px;
+  }
+}

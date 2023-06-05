@@ -1,9 +1,6 @@
 .logo__link {
   width: 38px;
   height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .logo__img {
@@ -12,4 +9,5 @@
   background-repeat: no-repeat;
   width: 38px;
   height: 38px;
+  display: block;
 }

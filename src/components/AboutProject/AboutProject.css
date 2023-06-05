@@ -1,5 +1,5 @@
 .about-project {
-  padding: 110px 70px;
+  padding: 110px 70px 106px;
 }
 
 .about-project__title {
@@ -66,6 +66,7 @@
 .about-project__item_top-left {
   grid-area: 1 / 1 / 2 / 2;
   background-color: #2BE080;
+  width: 228px;
 }
 
 .about-project__item_bottom-left {
@@ -85,4 +86,64 @@
   font-weight: 500;
   text-align: center;
   color: #A0A0A0;
+}
+
+
+@media screen and (max-width: 768px) {
+  .about-project {
+    padding: 90px 50px 85px;
+  }
+  .about-project__text {
+    gap: 30px;
+    margin-bottom: 93px;
+  }
+  .about-project__subtitle {
+    margin-bottom: 22px;
+  }
+  .about-project__description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .about-project__item_top-left {
+    width: 140px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+  .about-project__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 28px;
+  }
+  .about-project__line {
+    margin-bottom: 60px;
+  }
+  .about-project__text {
+    gap: 56px;
+    flex-direction: column;
+    margin-bottom: 60px;
+  }
+  .about-project__column {
+    width: 100%;
+  }
+  .about-project__subtitle {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 16px;
+  }
+  .about-project__description {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .about-project__item {
+    font-size: 11px;
+    line-height: 13px;
+    height: 35px;
+  }
+  .about-project__item_top-left {
+    width: 100px;
+  }
 }
