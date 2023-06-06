@@ -23,3 +23,9 @@
 .navigation__link_active {
   font-weight: 500;
 }
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
+}

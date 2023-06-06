@@ -17,12 +17,12 @@ const SearchForm = () => {
         noValidate
       >
         <div className="search-form__search">
-        <input
-          className='search-form__input input'
-          type='text'
-          placeholder='Фильм'
-        />
-        <button className='search-form__button button'>Поиск</button>
+          <input
+            className='search-form__input'
+            type='text'
+            placeholder='Фильм'
+          />
+          <button className='search-form__button button'>Поиск</button>
         </div>
         <FilterCheckbox/>
       </form>
