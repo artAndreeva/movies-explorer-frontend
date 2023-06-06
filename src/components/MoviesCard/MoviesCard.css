@@ -70,7 +70,7 @@
 
 .movies-card__info {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 0 14px 0;
   box-sizing: border-box;
@@ -132,12 +132,10 @@
     top: 10px;
     right: 10px;
   }
-
   .movies-card__button-saved {
     top: 10px;
     right: 10px;
   }
-
   .movies-card__button-delete {
     top: 10px;
     right: 10px;

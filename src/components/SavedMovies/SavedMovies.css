@@ -1,5 +1,12 @@
 .saved-movies {
   min-height: calc(100vh - 74px - 173px);
+  padding-bottom: 165px;
+}
+
+@media screen and (max-width: 768px) {
+  .saved-movies {
+    padding-bottom: 115px;
+  }
 }
 
 @media screen and (max-width: 320px) {

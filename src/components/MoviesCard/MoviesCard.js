@@ -25,8 +25,8 @@ const MoviesCard = ({ movie }) => {
         {isSaved && (<button className="movies-card__button-saved" onClick={() => setIsSaved(false)}></button>)}
       </div>
       <div className="movies-card__info">
-        <p className="movies-card__description">{movie.description}</p>
-        <p className="movies-card__duration">{movie.time}</p>
+        <span className="movies-card__description">{movie.description}</span>
+        <span className="movies-card__duration">{movie.time}</span>
       </div>
     </li>
   );
