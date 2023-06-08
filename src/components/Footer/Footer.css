@@ -65,11 +65,16 @@
   }
 }
 
+@media screen and (max-width: 400px) {
+  .footer {
+    padding: 79px 10px 20px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .footer {
     min-height: 253px;
     padding: 79px 10px 20px;
-    box-sizing: border-box;
   }
   .footer__title {
     font-size: 12px;

@@ -21,7 +21,7 @@
   height: 72px;
   border-radius: 8px;
   border: 1.5px solid rgba(170, 170, 170, .2);
-  padding: 0 125px 0 25px;
+  padding: 0 120px 0 25px;
   box-sizing: border-box;
   font-family: inherit;
   font-style: normal;
@@ -61,10 +61,13 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 400px) {
   .search-form {
     padding: 70px 14px 0;
   }
+}
+
+@media screen and (max-width: 320px) {
   .search-form__form {
     padding-bottom: 63px;
   }
@@ -75,7 +78,7 @@
     height: 56px;
     font-size: 16px;
     line-height: 16px;
-    padding: 0 72px 0 12px;
+    padding: 0 90px 0 12px;
   }
   .search-form__button {
     width: 80px;

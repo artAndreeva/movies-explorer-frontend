@@ -137,3 +137,33 @@
     min-height: 335px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .profile__container {
+    width: 320px;
+    margin: 0;
+    padding: 70px 30px 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile__greeting {
+    margin-bottom: 65px;
+  }
+  .profile__form {
+    min-height: 500px;
+  }
+  .profile__button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .profile__edit {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .profile__exit {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

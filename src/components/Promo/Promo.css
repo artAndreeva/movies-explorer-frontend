@@ -37,12 +37,17 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 750px) {
+  .promo__title {
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 550px) {
   .promo {
     min-height: 570px;
     padding: 142px 0 180px;
   }
-
   .promo__logo {
     background-image: url(../../images/promo-logo.svg);
     width: 248px;
@@ -51,7 +56,6 @@
   .promo__title {
     font-size: 31px;
     line-height: 39px;
-    max-width: 300px;
+    max-width: 299px;
   }
 }
-

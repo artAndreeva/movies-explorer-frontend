@@ -76,10 +76,13 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 400px) {
   .header {
     padding: 0 14px;
   }
+}
+
+@media screen and (max-width: 320px) {
   .header__register {
     font-size: 10px;
     line-height: 16px;

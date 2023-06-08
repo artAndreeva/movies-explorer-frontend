@@ -18,8 +18,8 @@ const AboutProject = () => {
       </div>
       <div className="about-project__timeline">
         <div className="about-project__item about-project__item_top-left"><span>1 неделя</span></div>
-        <div className="about-project__item about-project__item_bottom-left"><span lang="en">Back-end</span></div>
         <div className="about-project__item about-project__item_top-right"><span>4 недели</span></div>
+        <div className="about-project__item about-project__item_bottom-left"><span lang="en">Back-end</span></div>
         <div className="about-project__item about-project__item_bottom-right"><span lang="en">Front-end</span></div>
       </div>
     </section>

@@ -63,10 +63,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
-  .portfolio {
-    padding: 35px 18px 50px;
-  }
+@media screen and (max-width: 550px) {
   .portfolio__title {
     font-size: 14px;
     line-height: 10px;
@@ -81,5 +78,11 @@
   .portfolio__icon {
     width: 10px;
     height: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .portfolio {
+    padding: 35px 18px 50px;
   }
 }
