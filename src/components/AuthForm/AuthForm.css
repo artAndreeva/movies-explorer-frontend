@@ -1,7 +1,9 @@
 .auth-form {
   width: 396px;
-  margin: auto;
-  padding: 70px 0px;
+  padding: 70px 30px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .auth-form__greeting {
@@ -92,8 +94,8 @@
   font-size: 14px;
   line-height: 17px;
   color: #FFFFFF;
-  margin-bottom: 16px;
   padding: 0;
+  margin: 20px 0 16px;
 }
 
 .auth-form__button:disabled {
@@ -104,16 +106,13 @@
 }
 
 .auth-form__text {
-  display: flex;
-  justify-content: center;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-}
-
-.auth-form__question {
   color: #A0A0A0;
+  text-align: center;
+  display: block;
   margin: 0;
 }
 
@@ -124,21 +123,19 @@
   text-decoration: none;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 550px) {
   .auth-form {
-    width: 320px;
-    padding: 56px 30px 30px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    padding-top: 56px;
     align-items: center;
-  }
-  .auth-form__greeting {
-    margin: 50px 0 80px;
+    height: 100%;
   }
   .auth-form__form {
     width: 100%;
-    min-height: 482px;
+    height: 100%;
+  }
+  .auth-form__greeting {
+    margin: 50px 0 80px;
+    text-align: center;
   }
   .auth-form__button {
     font-size: 12px;

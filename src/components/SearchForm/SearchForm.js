@@ -18,11 +18,11 @@ const SearchForm = () => {
       >
         <div className="search-form__search">
           <input
-            className='search-form__input'
+            className='search-form__input input'
             type='text'
             placeholder='Фильм'
           />
-          <button className='search-form__button button'>Поиск</button>
+          <button className='search-form__button button input'>Поиск</button>
         </div>
         <FilterCheckbox/>
       </form>

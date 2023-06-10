@@ -10,7 +10,7 @@ const MoviesCard = ({ movie }) => {
   const { pathname } = useLocation();
 
   return (
-    <li className="movies-card__item">
+    <li className="movies-card">
       <div
         className="movies-card__image-container"
         onMouseEnter={() => setIsShown(true)}

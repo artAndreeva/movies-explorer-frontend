@@ -30,16 +30,16 @@ const Profile = () => {
   return (
     <main className="profile">
       <div className="profile__container">
-        <h1 className="profile__greeting">Привет, Виталий!</h1>
+        <h2 className="profile__greeting">Привет, Виталий!</h2>
         <form className="profile__form" onSubmit={handleSubmit}>
           <div className="profile__fieldset">
             <div className="profile__field">
               <label className="profile__label" htmlFor="name">Имя</label>
-              <input className="profile__input" id="name" name="name" value={values || 'Виталий'} onChange={handleChange} disabled={!isRedact}/>
+              <input className="profile__input input" id="name" name="name" value={values || 'Виталий'} onChange={handleChange} disabled={!isRedact}/>
             </div>
             <div className="profile__field">
               <label className="profile__label" htmlFor="email">E-mail</label>
-              <input className="profile__input" id="email" name="email" value="pochta@yandex.ru" onChange={handleChange} disabled={!isRedact}/>
+              <input className="profile__input input" id="email" name="email" value="pochta@yandex.ru" onChange={handleChange} disabled={!isRedact}/>
             </div>
           </div>
           <div className="profile__buttons">
@@ -47,7 +47,7 @@ const Profile = () => {
           ?
             <div className="profile__buttons">
               {/* <span className="profile__api-error">Ошибка API</span> */}
-              <button className="profile__button button" onClick={handleRedact}>Сохранить</button>
+              <button className="profile__button button input" onClick={handleRedact}>Сохранить</button>
             </div>
           :
             <div className="profile__buttons">

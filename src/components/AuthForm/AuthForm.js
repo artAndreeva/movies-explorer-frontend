@@ -19,7 +19,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
   return (
       <div className="auth-form">
         <Logo/>
-        <h1 className="auth-form__greeting">{greetingText}</h1>
+        <h2 className="auth-form__greeting">{greetingText}</h2>
         <form
           className="auth-form__form"
           name="auth-form"
@@ -32,7 +32,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
               <div className="auth-form__field">
                 <label className="auth-form__label" htmlFor="name">Имя</label>
                 <input
-                  className={`auth-form__input ${errors.name && 'auth-form__input_invalid'}`}
+                  className={`auth-form__input input ${errors.name && 'auth-form__input_invalid'}`}
                   type="text"
                   id="name"
                   name="name"
@@ -48,7 +48,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
             <div className="auth-form__field">
               <label className="auth-form__label" htmlFor="email">E-mail</label>
               <input
-                className={`auth-form__input ${errors.email && 'auth-form__input_invalid'}`}
+                className={`auth-form__input input ${errors.email && 'auth-form__input_invalid'}`}
                 type="email"
                 id="email"
                 name="email"
@@ -63,7 +63,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
             <div className="auth-form__field">
               <label className="auth-form__label" htmlFor="password">Пароль</label>
               <input
-                className={`auth-form__input ${errors.password && 'auth-form__input_invalid'}`}
+                className={`auth-form__input input ${errors.password && 'auth-form__input_invalid'}`}
                 type="password"
                 id="password"
                 name="password"
@@ -78,12 +78,13 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
           </fieldset>
           <div className="auth-form__submit">
             {/* <span className="auth-form__api-error">Ошибка API</span> */}
-            <button className="auth-form__button button" disabled={!isValid}>{buttonText}</button>
+            <button className="auth-form__button button input" disabled={!isValid}>{buttonText}</button>
+            <span className="auth-form__text">{questionText}
+              <Link to={registerPath} className="auth-form__to-register link"> {registerText}</Link>
+            </span>
           </div>
+
         </form>
-        <div className="auth-form__text">
-          <span className="auth-form__question">{questionText} <Link to={registerPath} className="auth-form__to-register link">{registerText}</Link></span>
-        </div>
       </div>
   );
 }

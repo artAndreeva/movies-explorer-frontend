@@ -1,6 +1,3 @@
-@import url(../../vendor/normalize.css);
-@import url(../../vendor/fonts/fonts.css);
-
 .content {
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
@@ -21,22 +18,4 @@
   .page {
     max-width: 320px;
   }
-}
-
-.link {
-  cursor: pointer;
-  transition: opacity .5s ease-in-out 0s;
-}
-
-.link:hover {
-  opacity: .7;
-}
-
-.button {
-  cursor: pointer;
-  transition: opacity .5s ease-in-out 0s;
-}
-
-.button:hover {
-  opacity: .8;
 }

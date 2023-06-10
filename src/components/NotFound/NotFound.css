@@ -1,12 +1,19 @@
 .not-found {
   height: 100vh;
-  display: flex;
-  justify-content: center;
   position: relative;
 }
 
 .not-found__container {
-  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -23%);
+  width: 300px;
+  height: 455px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .not-found__title {
@@ -27,6 +34,7 @@
   text-align: center;
   color: #000000;
   margin: 0;
+  display: block;
 }
 
 .not-found__go-back {
@@ -37,20 +45,13 @@
   color: #FF6838;
   width: 70px;
   padding: 0;
-  margin: 0;
+  margin: 20px 0 60px;
   background-color: transparent;
   border: none;
-  position: absolute;
-  bottom: 60px;
-}
-
-@media screen and (max-width: 768px) {
-  .not-found__go-back {
-    bottom: 222px;
-  }
 }
 
 @media screen and (max-width: 320px) {
+
   .not-found__title {
     font-size: 80px;
     line-height: 97px;
@@ -63,6 +64,6 @@
   .not-found__go-back {
     font-size: 12px;
     line-height: 15px;
-    bottom: 30px;
+    margin-bottom: 30px;
   }
 }

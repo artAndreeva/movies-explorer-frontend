@@ -1,11 +1,12 @@
 .profile {
-  min-height: calc(100vh - 74px);
+  height: calc(100vh - 74px);
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile__container {
   width: 410px;
-  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,10 +24,10 @@
 
 .profile__form {
   width: 100%;
-  min-height: 345px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 345px;
 }
 
 .profile__fieldset {
@@ -138,21 +139,26 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
+  .profile {
+    align-items: flex-start;
+  }
+  .profile__form {
+   height: 100%;
+  }
   .profile__container {
-    width: 320px;
-    margin: 0;
     padding: 70px 30px 40px;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__container {
+    width: 100%;
   }
   .profile__greeting {
     margin-bottom: 65px;
-  }
-  .profile__form {
-    min-height: 500px;
   }
   .profile__button {
     font-size: 12px;
