@@ -23,9 +23,9 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: left;
   background-color: #EBEBEB;
   position: relative;
+  transition: background-color .3s ease;
 }
 
 .filter-checkbox__pseudo-item::before {
@@ -35,12 +35,17 @@
   height: 16px;
   border-radius: 50%;
   background-color: #fff;
+  transition: all .3s ease;
 }
 
 .filter-checkbox__item:checked + .filter-checkbox__pseudo-item {
   background-color: #2BE080;
-  justify-content: right;
 }
+
+.filter-checkbox__item:checked + .filter-checkbox__pseudo-item:before {
+  transform: translate(100%);
+}
+
 
 .filter-checkbox__item:focus + .filter-checkbox__pseudo-item {
   outline: 2.5px solid #e2e2e2;

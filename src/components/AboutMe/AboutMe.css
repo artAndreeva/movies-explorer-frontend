@@ -23,7 +23,7 @@
 }
 
 .about-me__text{
-  max-width: 600px;
+  width: 600px;
 }
 
 .about-me__name {
@@ -70,7 +70,6 @@
   display: block;
 }
 
-
 @media screen and (max-width: 768px) {
   .about-me {
     padding: 90px 50px 40px;
@@ -78,12 +77,8 @@
   .about-me__line {
     margin-bottom: 64px;
   }
-  .about-me__info {
-    display: flex;
-    justify-content: space-between;
-  }
   .about-me__text{
-    max-width: 363px;
+    width: 363px;
   }
   .about-me__name {
     font-size: 40px;
@@ -112,7 +107,7 @@
     gap: 36px;
   }
   .about-me__text{
-    max-width: 100%;
+    width: 100%;
   }
 }
 

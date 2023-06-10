@@ -16,13 +16,13 @@
   width: 520px;
   height: 100%;
   background-color: #FFFFFF;
-  transform: translateX(100%);
+  transform: translate(100%);
   transition: transform .3s ease;
   z-index: 51;
 }
 
 .burger__container_visible {
-  transform: translateX(0);
+  transform: translate(0);
 }
 
 .burger__content {
