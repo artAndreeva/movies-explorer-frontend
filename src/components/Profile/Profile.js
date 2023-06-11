@@ -35,11 +35,11 @@ const Profile = () => {
           <div className="profile__fieldset">
             <div className="profile__field">
               <label className="profile__label" htmlFor="name">Имя</label>
-              <input className="profile__input input" id="name" name="name" value={values || 'Виталий'} onChange={handleChange} disabled={!isRedact}/>
+              <input className="profile__input" id="name" name="name" value={values || 'Виталий'} onChange={handleChange} disabled={!isRedact}/>
             </div>
             <div className="profile__field">
               <label className="profile__label" htmlFor="email">E-mail</label>
-              <input className="profile__input input" id="email" name="email" value="pochta@yandex.ru" onChange={handleChange} disabled={!isRedact}/>
+              <input className="profile__input" id="email" name="email" value="pochta@yandex.ru" onChange={handleChange} disabled={!isRedact}/>
             </div>
           </div>
           <div className="profile__buttons">

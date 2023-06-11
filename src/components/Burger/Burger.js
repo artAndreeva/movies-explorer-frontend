@@ -17,14 +17,15 @@ const Burger = ({ toggleBurger, isBurger }) => {
   };
 
   return (
-    <div className="burger">
+    <>
       <div className={`burger__container ${isOpen ? "burger__container_visible" : ""}`}>
         <div className="burger__content">
           <button className="burger__close-button button" onClick={closeBurger}></button>
           <Navigation isBurger={isBurger} closeBurger={closeBurger}/>
         </div>
       </div>
-    </div>
+      <div className={`burger ${isOpen ? "burger_visible" : ""}`}></div>
+    </>
   );
 }
 

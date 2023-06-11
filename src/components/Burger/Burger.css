@@ -7,6 +7,14 @@
   bottom: 0;
   left: 0;
   z-index: 50;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.burger_visible {
+  display: block;
+  opacity: 1;
+  transition: opacity .3s ease;
 }
 
 .burger__container {
