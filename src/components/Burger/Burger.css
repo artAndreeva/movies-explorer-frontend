@@ -12,12 +12,12 @@
 }
 
 .burger_visible {
-  display: block;
   opacity: 1;
   transition: opacity .3s ease;
 }
 
 .burger__container {
+  display: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -58,6 +58,15 @@
 
 @media screen and (max-width: 768px) {
   .burger {
+    display: block;
+  }
+  .burger_visible {
+    display: block;
+  }
+  .burger__container {
+    display: block;
+  }
+  .burger__container_visible {
     display: block;
   }
 }
