@@ -1,0 +1,13 @@
+.logo__link {
+  width: 38px;
+  height: 38px;
+}
+
+.logo__img {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 38px;
+  height: 38px;
+  display: block;
+}

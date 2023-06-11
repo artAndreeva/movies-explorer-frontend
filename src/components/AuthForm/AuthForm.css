@@ -1,0 +1,149 @@
+.auth-form {
+  width: 396px;
+  padding: 70px 30px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form__greeting {
+  margin: 40px 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+}
+
+.auth-form__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 400px;
+}
+
+.auth-form__fieldset {
+  all: unset;
+}
+
+.auth-form__field {
+  margin-bottom: 10px;
+/*   position: relative; */
+}
+
+.auth-form__label {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #A0A0A0;
+  margin-bottom: 10px;
+}
+
+.auth-form__input {
+  border: none;
+  width: 100%;
+  height: 46px;
+  background-color: #F9F9F9;
+  border-radius: 8px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.auth-form__input_invalid {
+  color: #EE3465;
+}
+
+.auth-form__validation-error {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+/*   display: block;
+  position: absolute;
+  top: 72px; */
+}
+
+.auth-form__api-error {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #FF004C;
+  margin: 0 0 20px;
+  display: block;
+}
+
+.auth-form__button {
+  border: none;
+  width: 100%;
+  height: 45px;
+  background-color: #FF6838;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+  padding: 0;
+  margin: 20px 0 16px;
+}
+
+.auth-form__button:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  pointer-events: none;
+  user-select: none;
+}
+
+.auth-form__text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #A0A0A0;
+  text-align: center;
+  display: block;
+  margin: 0;
+}
+
+.auth-form__to-register {
+  margin: 0;
+  text-align: center;
+  color: #FF6838;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 550px) {
+  .auth-form {
+    padding-top: 56px;
+    align-items: center;
+    height: 100%;
+  }
+  .auth-form__form {
+    width: 100%;
+    height: 100%;
+  }
+  .auth-form__greeting {
+    margin: 50px 0 80px;
+    text-align: center;
+  }
+  .auth-form__button {
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 14px;
+  }
+  .auth-form__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
