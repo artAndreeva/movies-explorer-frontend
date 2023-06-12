@@ -1,18 +1,17 @@
 import React from 'react';
 import Logo from '../Logo/Logo';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import './AuthForm.css';
 
-const AuthForm = ({ greetingText, buttonText, questionText, registerText, registerPath, navigatePath }) => {
+const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, onSubmit, apiError }) => {
 
     const { pathname } = useLocation();
     const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation({});
-    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      navigate(navigatePath, { replace: true });
+      onSubmit(values);
       resetForm();
     }
 
@@ -77,10 +76,10 @@ const AuthForm = ({ greetingText, buttonText, questionText, registerText, regist
             </div>
           </fieldset>
           <div className="auth-form__submit">
-            {/* <span className="auth-form__api-error">Ошибка API</span> */}
+            {apiError && <span className="auth-form__api-error">{apiError}</span>}
             <button className="auth-form__button button input" disabled={!isValid}>{buttonText}</button>
             <span className="auth-form__text">{questionText}
-              <Link to={registerPath} className="auth-form__to-register link"> {registerText}</Link>
+              <Link to={urlPath} className="auth-form__to-register link"> {urlText}</Link>
             </span>
           </div>
 

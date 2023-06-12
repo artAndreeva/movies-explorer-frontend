@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import './Navigation.css';
 
 const Navigation = ({ isBurger, closeBurger }) => {
+  const { pathname } = useLocation();
 
   return (
     <nav className="navigation">
@@ -18,7 +19,9 @@ const Navigation = ({ isBurger, closeBurger }) => {
         <li className="navigation__item">
           <NavLink
             to="/movies"
-            className={({isActive}) => `navigation__link link ${isActive ? "navigation__link_active" : ""}`}
+            className={({isActive}) => `navigation__link link
+              ${pathname === '/' && 'navigation__link_white'}
+              ${isActive ? "navigation__link_active" : ""}`}
             onClick={closeBurger}>
               Фильмы
           </NavLink>
@@ -26,7 +29,9 @@ const Navigation = ({ isBurger, closeBurger }) => {
         <li className="navigation__item">
           <NavLink
             to="/saved-movies"
-            className={({isActive}) => `navigation__link link ${isActive ? "navigation__link_active" : ""}`}
+            className={({isActive}) => `navigation__link link
+              ${pathname === '/' && 'navigation__link_white'}
+              ${isActive ? "navigation__link_active" : ""}`}
             onClick={closeBurger}>
               Сохранённые фильмы
           </NavLink>

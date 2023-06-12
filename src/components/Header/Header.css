@@ -76,6 +76,10 @@
   margin: 0;
 }
 
+.header__burger-button_white {
+  background-image: url(../../images/header-burger-white.svg);
+}
+
 @media screen and (max-width: 768px) {
   .header {
     padding: 0 30px;

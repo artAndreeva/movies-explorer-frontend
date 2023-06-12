@@ -1,12 +1,16 @@
 import React from 'react';
 import './Profile.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const Profile = () => {
+const Profile = ({ setIsLoggedIn }) => {
+
+  const currentUser = useContext(CurrentUserContext);
 
   const [isRedact, setIsRedact] = useState(false);
   const [values, setValues] = useState('');
+
   const navigate = useNavigate();
 
 
@@ -23,14 +27,25 @@ const Profile = () => {
     setIsRedact(!isRedact)
   }
 
-  const handleExit = () => {
+  function handleLogout() {
     navigate('/', { replace: true });
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
   }
+
+/*   const handleApiError = (error) => {
+    if (error === 409) {
+      setApiError('Пользователь с таким email уже существует.')
+    }
+    if (error === 500) {
+      setApiError('При обновлении профиля произошла ошибка.')
+    }
+  } */
 
   return (
     <main className="profile">
       <div className="profile__container">
-        <h2 className="profile__greeting">Привет, Виталий!</h2>
+        <h2 className="profile__greeting">Привет, {currentUser.name}!</h2>
         <form className="profile__form" onSubmit={handleSubmit}>
           <div className="profile__fieldset">
             <div className="profile__field">
@@ -52,7 +67,7 @@ const Profile = () => {
           :
             <div className="profile__buttons">
               <button className="profile__edit link" onClick={handleRedact}>Редактировать</button>
-              <button className="profile__exit link" onClick={handleExit}>Выйти из аккаунта</button>
+              <button className="profile__exit link" onClick={handleLogout}>Выйти из аккаунта</button>
             </div>
           }
           </div>
