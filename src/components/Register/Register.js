@@ -1,31 +1,22 @@
 import React from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
-import * as MainApi from '../../utils/MainApi';
 import './Register.css';
 
-const Register = () => {
+const Register = ({ handleRegister, apiStatusCode, isAuthProcess }) => {
 
-  const [apiError, setApiError] = useState('');
-  const navigate = useNavigate();
+  const [apiStatusText, setApiStatusText] = useState('');
 
-  const handleRegister = (values) => {
-    MainApi.register(values.name, values.email, values.password)
-      .then (() => {
-        navigate('/signin', {replace: true});
-      })
-      .catch((error) => {
-        handleApiError(error);
-      })
-  }
+  useEffect(() => {
+    handleApiStatus(apiStatusCode);
+  }, [apiStatusCode])
 
-  const handleApiError = (error) => {
-    if (error === 409) {
-      setApiError('Пользователь с таким email уже существует.')
+  const handleApiStatus = (apiStatusCode) => {
+    if (apiStatusCode === 409) {
+      setApiStatusText('Пользователь с таким email уже существует.')
     }
-    if (error === 500) {
-      setApiError('При регистрации пользователя произошла ошибка.')
+    if (apiStatusCode === 500) {
+      setApiStatusText('При регистрации пользователя произошла ошибка.')
     }
   }
 
@@ -37,8 +28,9 @@ const Register = () => {
         questionText={'Уже зарегистрированы?'}
         urlText={'Войти'}
         urlPath={'/signin'}
-        apiError={apiError}
+        apiStatusText={apiStatusText}
         onSubmit={handleRegister}
+        isAuthProcess={isAuthProcess}
       />
     </main>
   );

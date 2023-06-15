@@ -52,15 +52,16 @@ export const getUserInfo = () => {
   })
 }
 
-export const setUserInfo = (data) => {
+export const setUserInfo = (name, email) => {
   return request(`${BASE_URL}/users/me`, {
     method: 'PATCH',
     headers: {
       "Content-Type": "application/json",
+      "Authorization" : `Bearer ${localStorage.getItem('jwt')}`
     },
     body: JSON.stringify({
-      name: data.name,
-      email: data.email
+      name,
+      email
     })
   })
 }
@@ -80,6 +81,7 @@ export const addMovie = (data) => {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
+      "Authorization" : `Bearer ${localStorage.getItem('jwt')}`
     },
     body: JSON.stringify({
       country: data.country,
@@ -102,6 +104,7 @@ export const deleteMovie = (id) => {
     method: 'DELETE',
     headers: {
       "Content-Type": "application/json",
+      "Authorization" : `Bearer ${localStorage.getItem('jwt')}`
     }
   })
 }

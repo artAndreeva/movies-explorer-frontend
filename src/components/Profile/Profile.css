@@ -78,6 +78,10 @@
   margin: 0 0 20px;
 }
 
+.profile__api-error_not-error {
+  color: #2BE080;
+}
+
 .profile__button {
   border: none;
   width: 100%;
