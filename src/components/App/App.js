@@ -105,6 +105,9 @@ const App = () => {
   const handleLogout = () => {
     navigate('/', { replace: true });
     localStorage.removeItem('jwt');
+    localStorage.removeItem('movies');
+    localStorage.removeItem('searchedMovies');
+    localStorage.removeItem('searchParams');
     setIsLoggedIn(false);
   }
 

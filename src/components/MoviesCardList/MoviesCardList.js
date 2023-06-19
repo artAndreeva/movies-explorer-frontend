@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useWindowSize from '../../hooks/useWindowSize';
 
@@ -21,28 +22,37 @@ const MoviesCardList = ({
 
   const sliceMovies = () => {
     if (size.width) {
-      setSlicedMovies(movies.slice(0, 12))
-      setMoreMovies(3)
+      setSlicedMovies(movies.slice(0, 12));
+      setMoreMovies(3);
     }
     if (size.width <= 768) {
-      setSlicedMovies(movies.slice(0, 8))
-      setMoreMovies(2)
+      setSlicedMovies(movies.slice(0, 8));
+      setMoreMovies(2);
     }
     if (size.width <= 480) {
-      setSlicedMovies(movies.slice(0, 5))
-      setMoreMovies(2)
+      setSlicedMovies(movies.slice(0, 5));
+      setMoreMovies(2);
     }
   }
 
   useEffect(() => {
-    sliceMovies()
+    sliceMovies();
   }, [size.width, movies])
+
+  useEffect(() => {
+    hideButton();
+  }, [movies])
 
   const showMoreMovies = () => {
     setSlicedMovies(movies.slice(0, (slicedMovies.length + moreMovies)));
+  }
+
+  const hideButton = () => {
     if (movies.length < (slicedMovies.length + moreMovies)) {
       setIsShown(false);
-    } 
+    } else {
+      setIsShown(true);
+    }
   }
 
   return (
