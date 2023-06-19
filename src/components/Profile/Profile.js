@@ -47,15 +47,15 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout }) => {
   }, [apiStatus])
 
   const handleApiStatus = () => {
-    if (apiStatus.status === 200) {
+    if (apiStatus === 200) {
       setApiStatusText('Данные успешно обновлены');
       setIsSuccess(true);
     }
-    if (apiStatus.status === 409) {
+    if (apiStatus === 409) {
       setApiStatusText('Пользователь с таким email уже существует.');
       setIsSuccess(false);
     }
-    if (apiStatus.status === 500) {
+    if (apiStatus === 500) {
       setApiStatusText('При обновлении профиля произошла ошибка.');
       setIsSuccess(false);
     }

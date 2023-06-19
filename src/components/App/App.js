@@ -24,7 +24,8 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [apiStatus, setApiStatus] = useState(null);
-  const [isAuthProcess, setIsAuthProcess] = useState(false);
+  const [apiMessage, setApiMessage] = useState('');
+  const [isFormInProcess, setIsFormInProcess] = useState(false);
   const [isTokenChecked, setIsTokenChecked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -45,7 +46,7 @@ const App = () => {
         })
         .catch((err) => {
           setIsPopupOpen(true);
-          setApiStatus(err.message);
+          setApiMessage(err.message);
         })
   }, [isLoggedIn])
 
@@ -60,7 +61,7 @@ const App = () => {
       })
       .catch((err) => {
         setIsPopupOpen(true);
-        setApiStatus(err.message);
+        setApiMessage(err.message);
       })
       .finally(() => {
         setIsTokenChecked(true);
@@ -71,21 +72,21 @@ const App = () => {
   }
 
   const handleRegister = (values) => {
-    setIsAuthProcess(true);
+    setIsFormInProcess(true);
     MainApi.register(values.name, values.email, values.password)
       .then (() => {
         handleLogin(values);
       })
       .catch((err) => {
-        setApiStatus(err);
+        setApiStatus(err.status);
       })
       .finally(() => {
-        setIsAuthProcess(false);
+        setIsFormInProcess(false);
       })
   }
 
   const handleLogin = (values) => {
-    setIsAuthProcess(true);
+    setIsFormInProcess(true);
     MainApi.authorize(values.email, values.password)
       .then((res) => {
         if (res.token) {
@@ -95,10 +96,10 @@ const App = () => {
         }
       })
       .catch((err) => {
-        setApiStatus(err);
+        setApiStatus(err.status);
       })
       .finally(() => {
-        setIsAuthProcess(false);
+        setIsFormInProcess(false);
       })
   }
 
@@ -119,7 +120,7 @@ const App = () => {
       setApiStatus(200);
     })
     .catch((err) => {
-      setApiStatus(err);
+      setApiStatus(err.status);
     })
   }
 
@@ -130,7 +131,7 @@ const App = () => {
     })
     .catch((err) => {
       setIsPopupOpen(true);
-      setApiStatus(err.message);
+      setApiMessage(err.message);
     })
   }
 
@@ -141,7 +142,7 @@ const App = () => {
     })
     .catch((err) => {
       setIsPopupOpen(true);
-      setApiStatus(err.message);
+      setApiMessage(err.message);
     })
   }
 
@@ -157,7 +158,7 @@ const App = () => {
     })
     .catch((err) => {
       setIsPopupOpen(true);
-      setApiStatus(err.message);
+      setApiMessage(err.message);
     })
   }
 
@@ -212,7 +213,7 @@ const App = () => {
                   isLoggedIn={isLoggedIn}
                   handleLogin={handleLogin}
                   apiStatus={apiStatus}
-                  isAuthProcess={isAuthProcess}
+                  isFormInProcess={isFormInProcess}
                 />
               }/>
               <Route path='/signup' element={
@@ -221,7 +222,7 @@ const App = () => {
                   isLoggedIn={isLoggedIn}
                   handleLogin={handleRegister}
                   apiStatus={apiStatus}
-                  isAuthProcess={isAuthProcess}
+                  isFormInProcess={isFormInProcess}
                 />
               }/>
               <Route path='*' element={<NotFound/>}/>
@@ -234,7 +235,7 @@ const App = () => {
             <Popup
               isPopupOpen={isPopupOpen}
               closePopup={closePopup}
-              apiStatus={apiStatus}/>
+              apiMessage={apiMessage}/>
 
           </CurrentUserContext.Provider>
         )}

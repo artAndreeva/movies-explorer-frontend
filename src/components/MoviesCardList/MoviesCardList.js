@@ -1,9 +1,9 @@
 import React from 'react';
-import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import useWindowSize from '../../hooks/useWindowSize';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import useWindowSize from '../../hooks/useWindowSize';
+import './MoviesCardList.css';
 
 const MoviesCardList = ({
   movies,

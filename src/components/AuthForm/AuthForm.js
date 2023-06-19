@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import './AuthForm.css';
 
-const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, onSubmit, apiStatusText, isAuthProcess }) => {
+const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, onSubmit, apiStatusText, isFormInProcess }) => {
 
     const { pathname } = useLocation();
     const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation({});
@@ -40,7 +40,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, on
                   maxLength="40"
                   value={values.name || ''}
                   onChange={handleChange}
-                  disabled={isAuthProcess}
+                  disabled={isFormInProcess}
                 />
                 {errors.name && <span className="auth-form__validation-error">{errors.name}</span>}
               </div>
@@ -57,7 +57,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, on
                 maxLength="40"
                 value={values.email || ''}
                 onChange={handleChange}
-                disabled={isAuthProcess}
+                disabled={isFormInProcess}
               />
               {errors.email && <span className="auth-form__validation-error">{errors.email}</span>}
             </div>
@@ -73,14 +73,14 @@ const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, on
                 maxLength="40"
                 value={values.password || ''}
                 onChange={handleChange}
-                disabled={isAuthProcess}
+                disabled={isFormInProcess}
               />
               {errors.password && <span className="auth-form__validation-error">{errors.password}</span>}
             </div>
           </fieldset>
           <div className="auth-form__submit">
             {apiStatusText && <span className="auth-form__api-error">{apiStatusText}</span>}
-            <button className="auth-form__button button input" disabled={!isValid || isAuthProcess}>{buttonText}</button>
+            <button className="auth-form__button button input" disabled={!isValid || isFormInProcess}>{buttonText}</button>
             <span className="auth-form__text">{questionText}
               <Link to={urlPath} className="auth-form__to-register link"> {urlText}</Link>
             </span>

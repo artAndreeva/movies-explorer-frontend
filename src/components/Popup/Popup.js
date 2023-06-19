@@ -1,7 +1,7 @@
 import React from 'react';
 import './Popup.css';
 
-const Popup = ({ isPopupOpen, closePopup, apiStatus }) => {
+const Popup = ({ isPopupOpen, closePopup, apiMessage }) => {
 
 return (
   <div className={`popup ${isPopupOpen && 'popup_opened'}`}>
@@ -11,7 +11,7 @@ return (
         type="button"
         onClick={closePopup}>
       </button>
-      <span className="popup__text">{apiStatus}</span>
+      <span className="popup__text">{apiMessage}</span>
     </div>
   </div>
 )

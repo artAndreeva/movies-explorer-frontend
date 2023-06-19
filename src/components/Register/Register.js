@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import './Register.css';
 
-const Register = ({ handleRegister, apiStatus, isAuthProcess }) => {
+const Register = ({ handleRegister, apiStatus, isFormInProcess }) => {
 
   const [apiStatusText, setApiStatusText] = useState('');
 
@@ -12,10 +12,10 @@ const Register = ({ handleRegister, apiStatus, isAuthProcess }) => {
   }, [apiStatus])
 
   const handleApiStatus = () => {
-    if (apiStatus.status === 409) {
+    if (apiStatus === 409) {
       setApiStatusText('Пользователь с таким email уже существует.')
     }
-    if (apiStatus.status === 500) {
+    if (apiStatus === 500) {
       setApiStatusText('При регистрации пользователя произошла ошибка.')
     }
   }
@@ -30,7 +30,7 @@ const Register = ({ handleRegister, apiStatus, isAuthProcess }) => {
         urlPath={'/signin'}
         apiStatusText={apiStatusText}
         onSubmit={handleRegister}
-        isAuthProcess={isAuthProcess}
+        isFormInProcess={isFormInProcess}
       />
     </main>
   );
