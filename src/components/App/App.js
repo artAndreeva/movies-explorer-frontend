@@ -15,6 +15,7 @@ import * as MainApi from '../../utils/MainApi';
 import * as MoviesApi from '../../utils/MoviesApi';
 import ProtectedRouteElement from '../../components/ProtectedRoute/ProtectedRoute';
 import AuthRouteElement from '../AuthRoute/AuthRoute';
+import Popup from '../Popup/Popup';
 
 import './App.css';
 
@@ -26,6 +27,7 @@ const App = () => {
   const [isAuthProcess, setIsAuthProcess] = useState(false);
   const [isTokenChecked, setIsTokenChecked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -151,6 +153,14 @@ const App = () => {
     })
   }
 
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  }
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  }
+
   return (
     <div className="content">
       <div className="page">
@@ -216,6 +226,11 @@ const App = () => {
             {pathname === '/' || pathname === '/movies' || pathname === '/saved-movies'
             ? <Footer/>
             : null}
+
+            <Popup
+              isPopupOpen={isPopupOpen}
+              closePopup={closePopup}
+              apiStatusCode={apiStatusCode}/>
 
           </CurrentUserContext.Provider>
         )}
