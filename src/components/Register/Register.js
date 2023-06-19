@@ -3,19 +3,19 @@ import { useState, useEffect } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import './Register.css';
 
-const Register = ({ handleRegister, apiStatusCode, isAuthProcess }) => {
+const Register = ({ handleRegister, apiStatus, isAuthProcess }) => {
 
   const [apiStatusText, setApiStatusText] = useState('');
 
   useEffect(() => {
-    handleApiStatus(apiStatusCode);
-  }, [apiStatusCode])
+    handleApiStatus();
+  }, [apiStatus])
 
-  const handleApiStatus = (code) => {
-    if (code === 409) {
+  const handleApiStatus = () => {
+    if (apiStatus.status === 409) {
       setApiStatusText('Пользователь с таким email уже существует.')
     }
-    if (code === 500) {
+    if (apiStatus.status === 500) {
       setApiStatusText('При регистрации пользователя произошла ошибка.')
     }
   }

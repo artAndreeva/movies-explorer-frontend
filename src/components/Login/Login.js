@@ -3,22 +3,22 @@ import { useState, useEffect } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import './Login.css';
 
-const Login = ({ handleLogin, apiStatusCode, isAuthProcess }) => {
+const Login = ({ handleLogin, apiStatus, isAuthProcess }) => {
 
   const [apiStatusText, setApiStatusText] = useState('');
 
   useEffect(() => {
-    handleApiStatus(apiStatusCode);
-  }, [apiStatusCode])
+    handleApiStatus();
+  }, [apiStatus])
 
-  const handleApiStatus = (code) => {
-    if (code === 400) {
+  const handleApiStatus = () => {
+    if (apiStatus.status === 400) {
       setApiStatusText('Вы ввели неправильный логин или пароль.')
     }
-    if (code === 401) {
+    if (apiStatus.status === 401) {
       setApiStatusText('При авторизации произошла ошибка. Токен не передан или передан не в том формате.')
     }
-    if (code === 403) {
+    if (apiStatus.status === 403) {
       setApiStatusText('При авторизации произошла ошибка. Переданный токен некорректен.')
     }
   }

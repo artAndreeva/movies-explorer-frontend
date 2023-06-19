@@ -42,7 +42,7 @@ const MoviesCardList = ({
     setSlicedMovies(movies.slice(0, (slicedMovies.length + moreMovies)));
     if (movies.length < (slicedMovies.length + moreMovies)) {
       setIsShown(false);
-    }
+    } 
   }
 
   return (

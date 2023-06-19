@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
-const Profile = ({ handleUpdateUser, apiStatusCode, handleLogout }) => {
+const Profile = ({ handleUpdateUser, apiStatus, handleLogout }) => {
 
   const { values, handleChange, isValid, setValues } = useFormAndValidation({});
   const currentUser = useContext(CurrentUserContext);
@@ -43,19 +43,19 @@ const Profile = ({ handleUpdateUser, apiStatusCode, handleLogout }) => {
   }
 
   useEffect(() => {
-    handleApiStatus(apiStatusCode);
-  }, [apiStatusCode])
+    handleApiStatus();
+  }, [apiStatus])
 
-  const handleApiStatus = (code) => {
-    if (code === 200) {
+  const handleApiStatus = () => {
+    if (apiStatus.status === 200) {
       setApiStatusText('Данные успешно обновлены');
       setIsSuccess(true);
     }
-    if (code === 409) {
+    if (apiStatus.status === 409) {
       setApiStatusText('Пользователь с таким email уже существует.');
       setIsSuccess(false);
     }
-    if (code === 500) {
+    if (apiStatus.status === 500) {
       setApiStatusText('При обновлении профиля произошла ошибка.');
       setIsSuccess(false);
     }

@@ -23,11 +23,11 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
-  const [apiStatusCode, setApiStatusCode] = useState(null);
+  const [apiStatus, setApiStatus] = useState(null);
   const [isAuthProcess, setIsAuthProcess] = useState(false);
   const [isTokenChecked, setIsTokenChecked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(true);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -43,8 +43,9 @@ const App = () => {
           setCurrentUser(userInfo);
           setSavedMovies(userMovies);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          setIsPopupOpen(true);
+          setApiStatus(err.message);
         })
   }, [isLoggedIn])
 
@@ -57,8 +58,9 @@ const App = () => {
           setIsLoggedIn(true);
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        setIsPopupOpen(true);
+        setApiStatus(err.message);
       })
       .finally(() => {
         setIsTokenChecked(true);
@@ -74,8 +76,8 @@ const App = () => {
       .then (() => {
         handleLogin(values);
       })
-      .catch((code) => {
-        setApiStatusCode(code);
+      .catch((err) => {
+        setApiStatus(err);
       })
       .finally(() => {
         setIsAuthProcess(false);
@@ -92,8 +94,8 @@ const App = () => {
           navigate('/movies', {replace: true});
         }
       })
-      .catch((code) => {
-        setApiStatusCode(code);
+      .catch((err) => {
+        setApiStatus(err);
       })
       .finally(() => {
         setIsAuthProcess(false);
@@ -111,10 +113,10 @@ const App = () => {
     MainApi.setUserInfo(values.name, values.email)
     .then((res) => {
       setCurrentUser(res);
-      setApiStatusCode(200);
+      setApiStatus(200);
     })
-    .catch((code) => {
-      setApiStatusCode(code);
+    .catch((err) => {
+      setApiStatus(err);
     })
   }
 
@@ -123,8 +125,9 @@ const App = () => {
     .then((res) => {
       localStorage.setItem('movies', JSON.stringify(res));
     })
-    .catch((code) => {
-      setApiStatusCode(code);
+    .catch((err) => {
+      setIsPopupOpen(true);
+      setApiStatus(err.message);
     })
   }
 
@@ -133,8 +136,9 @@ const App = () => {
     .then((newMovie) => {
       setSavedMovies([newMovie, ...savedMovies])
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      setIsPopupOpen(true);
+      setApiStatus(err.message);
     })
   }
 
@@ -148,13 +152,10 @@ const App = () => {
     .then(() => {
       setSavedMovies((state) => state.filter((currentMovie) => currentMovie._id !== id));
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      setIsPopupOpen(true);
+      setApiStatus(err.message);
     })
-  }
-
-  const openPopup = () => {
-    setIsPopupOpen(true);
   }
 
   const closePopup = () => {
@@ -198,7 +199,7 @@ const App = () => {
                   Component={Profile}
                   isLoggedIn={isLoggedIn}
                   handleUpdateUser={handleUpdateUser}
-                  apiStatusCode={apiStatusCode}
+                  apiStatus={apiStatus}
                   handleLogout={handleLogout}
                   />
               }/>
@@ -207,7 +208,7 @@ const App = () => {
                   Component={Login}
                   isLoggedIn={isLoggedIn}
                   handleLogin={handleLogin}
-                  apiStatusCode={apiStatusCode}
+                  apiStatus={apiStatus}
                   isAuthProcess={isAuthProcess}
                 />
               }/>
@@ -216,7 +217,7 @@ const App = () => {
                   Component={Register}
                   isLoggedIn={isLoggedIn}
                   handleLogin={handleRegister}
-                  apiStatusCode={apiStatusCode}
+                  apiStatus={apiStatus}
                   isAuthProcess={isAuthProcess}
                 />
               }/>
@@ -230,7 +231,7 @@ const App = () => {
             <Popup
               isPopupOpen={isPopupOpen}
               closePopup={closePopup}
-              apiStatusCode={apiStatusCode}/>
+              apiStatus={apiStatus}/>
 
           </CurrentUserContext.Provider>
         )}
