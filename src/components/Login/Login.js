@@ -11,14 +11,14 @@ const Login = ({ handleLogin, apiStatusCode, isAuthProcess }) => {
     handleApiStatus(apiStatusCode);
   }, [apiStatusCode])
 
-  const handleApiStatus = (apiStatusCode) => {
-    if (apiStatusCode === 400) {
+  const handleApiStatus = (code) => {
+    if (code === 400) {
       setApiStatusText('Вы ввели неправильный логин или пароль.')
     }
-    if (apiStatusCode === 401) {
+    if (code === 401) {
       setApiStatusText('При авторизации произошла ошибка. Токен не передан или передан не в том формате.')
     }
-    if (apiStatusCode === 403) {
+    if (code === 403) {
       setApiStatusText('При авторизации произошла ошибка. Переданный токен некорректен.')
     }
   }

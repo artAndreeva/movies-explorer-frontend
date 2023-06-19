@@ -1,15 +1,13 @@
 import React from 'react';
 import './Profile.css';
 import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
-const Profile = ({ setIsLoggedIn, handleUpdateUser, apiStatusCode }) => {
+const Profile = ({ handleUpdateUser, apiStatusCode, handleLogout }) => {
 
   const { values, handleChange, isValid, setValues } = useFormAndValidation({});
   const currentUser = useContext(CurrentUserContext);
-  const navigate = useNavigate();
   const [isRedact, setIsRedact] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [apiStatusText, setApiStatusText] = useState('');
@@ -44,12 +42,6 @@ const Profile = ({ setIsLoggedIn, handleUpdateUser, apiStatusCode }) => {
     setIsRedact(false);
   }
 
-  const handleLogout = () => {
-    navigate('/', { replace: true });
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-  }
-
   useEffect(() => {
     handleApiStatus(apiStatusCode);
   }, [apiStatusCode])
@@ -77,11 +69,23 @@ const Profile = ({ setIsLoggedIn, handleUpdateUser, apiStatusCode }) => {
           <div className="profile__fieldset">
             <div className="profile__field">
               <label className="profile__label" htmlFor="name">Имя</label>
-              <input className="profile__input" id="name" name="name" value={values.name || ''} onChange={handleChange} disabled={!isRedact}/>
+              <input
+                className="profile__input"
+                id="name"
+                name="name"
+                value={values.name || ''}
+                onChange={handleChange}
+                disabled={!isRedact}/>
             </div>
             <div className="profile__field">
               <label className="profile__label" htmlFor="email">E-mail</label>
-              <input className="profile__input" id="email" name="email" value={values.email || ''} onChange={handleChange} disabled={!isRedact}/>
+              <input
+                className="profile__input"
+                id="email"
+                name="email"
+                value={values.email || ''}
+                onChange={handleChange}
+                disabled={!isRedact}/>
             </div>
           </div>
           <div className="profile__buttons">

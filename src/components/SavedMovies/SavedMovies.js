@@ -2,13 +2,25 @@ import React from 'react';
 import './SavedMovies.css';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
-import savedmovies from '../../utils/savedmovies';
+import { useEffect, useState } from 'react';
+import Preloader from '../Preloader/Preloader';
 
-const SavedMovies = () => {
+const SavedMovies = ({
+  savedMovies,
+  deleteMovie,
+  isLoaded
+}) => {
+
+
   return (
     <main className="saved-movies">
       <SearchForm/>
-      <MoviesCardList movies={savedmovies}/>
+      {isLoaded
+      ? <Preloader/>
+      : <MoviesCardList
+        movies={savedMovies}
+        deleteMovie={deleteMovie}/>
+      }
     </main>
   );
 }

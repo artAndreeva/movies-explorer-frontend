@@ -11,11 +11,11 @@ const Register = ({ handleRegister, apiStatusCode, isAuthProcess }) => {
     handleApiStatus(apiStatusCode);
   }, [apiStatusCode])
 
-  const handleApiStatus = (apiStatusCode) => {
-    if (apiStatusCode === 409) {
+  const handleApiStatus = (code) => {
+    if (code === 409) {
       setApiStatusText('Пользователь с таким email уже существует.')
     }
-    if (apiStatusCode === 500) {
+    if (code === 500) {
       setApiStatusText('При регистрации пользователя произошла ошибка.')
     }
   }

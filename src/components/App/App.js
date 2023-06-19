@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
@@ -21,10 +21,11 @@ import './App.css';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [savedMovies, setSavedMovies] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
   const [apiStatusCode, setApiStatusCode] = useState(null);
   const [isAuthProcess, setIsAuthProcess] = useState(false);
   const [isTokenChecked, setIsTokenChecked] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -35,14 +36,14 @@ const App = () => {
 
   useEffect(() => {
     isLoggedIn &&
-    Promise.all([MainApi.getUserInfo(), MainApi.getUserMovies()])
-      .then(([userInfo, userMovies]) => {
-        setCurrentUser(userInfo);
-        setSavedMovies(userMovies);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      Promise.all([MainApi.getUserInfo(), MainApi.getUserMovies()])
+        .then(([userInfo, userMovies]) => {
+          setCurrentUser(userInfo);
+          setSavedMovies(userMovies);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
   }, [isLoggedIn])
 
   const handleCheckToken = () => {
@@ -97,6 +98,13 @@ const App = () => {
       })
   }
 
+  const handleLogout = () => {
+    navigate('/', { replace: true });
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+  }
+
+
   const handleUpdateUser = (values) => {
     MainApi.setUserInfo(values.name, values.email)
     .then((res) => {
@@ -111,10 +119,35 @@ const App = () => {
   const getMovies = () => {
     MoviesApi.getMovies()
     .then((res) => {
-      localStorage.setItem('movies', res);
+      localStorage.setItem('movies', JSON.stringify(res));
     })
     .catch((code) => {
       setApiStatusCode(code);
+    })
+  }
+
+  const addMovie = (movie) => {
+    MainApi.addMovie(movie)
+    .then((newMovie) => {
+      setSavedMovies([newMovie, ...savedMovies])
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  const deleteSavedMovie = (id) => {
+    const savedMovie = savedMovies.find((movie) => movie.movieId === id)
+    deleteMovie(savedMovie._id);
+  }
+
+  const deleteMovie = (id) => {
+    MainApi.deleteMovie(id)
+    .then(() => {
+      setSavedMovies((state) => state.filter((currentMovie) => currentMovie._id !== id));
+    })
+    .catch((error) => {
+      console.log(error);
     })
   }
 
@@ -134,21 +167,29 @@ const App = () => {
                 <ProtectedRouteElement
                   Component={Movies}
                   isLoggedIn={isLoggedIn}
+                  isLoaded={isLoaded}
+                  getMovies={getMovies}
+                  addMovie={addMovie}
+                  deleteSavedMovie={deleteSavedMovie}
+                  savedMovies={savedMovies}
                 />
               }/>
               <Route path='/saved-movies' element={
                 <ProtectedRouteElement
                   Component={SavedMovies}
                   isLoggedIn={isLoggedIn}
+                  isLoaded={isLoaded}
+                  deleteMovie={deleteMovie}
+                  savedMovies={savedMovies}
                   />
               }/>
               <Route path='/profile' element={
                 <ProtectedRouteElement
                   Component={Profile}
                   isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
                   handleUpdateUser={handleUpdateUser}
                   apiStatusCode={apiStatusCode}
+                  handleLogout={handleLogout}
                   />
               }/>
               <Route path='/signin' element={
