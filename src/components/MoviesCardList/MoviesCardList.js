@@ -4,6 +4,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
+import Preloader from '../Preloader/Preloader';
 
 const MoviesCardList = ({
   movies,
@@ -11,6 +12,7 @@ const MoviesCardList = ({
   deleteMovie,
   deleteSavedMovie,
   savedMovies,
+  isLoaded
 }) => {
 
   const { pathname } = useLocation();
@@ -18,7 +20,8 @@ const MoviesCardList = ({
 
   const [slicedMovies, setSlicedMovies] = useState([]);
   const [moreMovies, setMoreMovies] = useState(null);
-  const [isShown, setIsShown] = useState(true);
+  const [isShown, setIsShown] = useState(false);
+  const [noResult, setNoResult] = useState(false);
 
   const sliceMovies = () => {
     if (size.width) {
@@ -36,18 +39,29 @@ const MoviesCardList = ({
   }
 
   useEffect(() => {
-    sliceMovies();
+    if (movies) {
+      sliceMovies();
+    }
   }, [size.width, movies])
 
   useEffect(() => {
-    hideButton();
+    if (movies) {
+      toggleButton();
+      handleNoResult();
+    }
+  }, [movies, slicedMovies, moreMovies])
+
+  useEffect(() => {
+    if (movies) {
+      handleNoResult();
+    }
   }, [movies])
 
   const showMoreMovies = () => {
     setSlicedMovies(movies.slice(0, (slicedMovies.length + moreMovies)));
   }
 
-  const hideButton = () => {
+  const toggleButton = () => {
     if (movies.length < (slicedMovies.length + moreMovies)) {
       setIsShown(false);
     } else {
@@ -55,20 +69,34 @@ const MoviesCardList = ({
     }
   }
 
+  const handleNoResult = () => {
+    if (movies.length === 0) {
+      setNoResult(true);
+    } else {
+      setNoResult(false);
+    }
+  }
+
   return (
     <section className="movies-card-list">
-      <ul className="movies-card-list__list">
-        {slicedMovies.map((movie) => (
-          <MoviesCard
-            key={movie.id || movie._id}
-            movie={movie}
-            addMovie={addMovie}
-            deleteMovie={deleteMovie}
-            deleteSavedMovie={deleteSavedMovie}
-            savedMovies={savedMovies}
-          />
-        ))}
-      </ul>
+      {isLoaded
+      ? <Preloader/>
+      : <>{noResult
+        ? <span className="movies-card-list__no-result">Ничего не найдено</span>
+        : <ul className="movies-card-list__list">
+            {slicedMovies.map((movie) => (
+              <MoviesCard
+                key={movie.id || movie._id}
+                movie={movie}
+                addMovie={addMovie}
+                deleteMovie={deleteMovie}
+                deleteSavedMovie={deleteSavedMovie}
+                savedMovies={savedMovies}
+              />
+            ))}
+          </ul>
+        }</>
+      }
       {pathname === '/movies' && (isShown && <button className="movies-card-list__button button" onClick={showMoreMovies}>Ещё</button>)}
     </section>
   );

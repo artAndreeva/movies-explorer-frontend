@@ -10,7 +10,7 @@ const FilterCheckbox = ({ toggleCheckbox, isChecked }) => {
         id="short-films"
         value="short-films"
         className="filter-checkbox__item"
-        checked={isChecked}
+        checked={isChecked || ''}
         onChange={toggleCheckbox}/>
       <span className="filter-checkbox__pseudo-item"></span>
       <span className="filter-checkbox__label-text">Короткометражки</span>

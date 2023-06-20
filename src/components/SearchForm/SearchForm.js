@@ -1,9 +1,8 @@
 import React from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
-import './SearchForm.css';
 import { useEffect, useState } from 'react';
-
+import './SearchForm.css';
 
 const SearchForm = ({ getMovies, handleSearchedMovies }) => {
 
@@ -11,65 +10,87 @@ const SearchForm = ({ getMovies, handleSearchedMovies }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isFirstSearch, setIsFirstSearch] = useState(true);
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  handleFirstSearch();
-  setIsFirstSearch(false);
-  searchMovies();
-}
-
-useEffect(() => {
-  handleStartParams();
-}, [])
-
-const handleStartParams = () => {
-  const params = JSON.parse(localStorage.getItem('searchParams'));
-  setValues({movie: params.value});
-  setIsChecked(params.checkbox);
-}
-
-const toggleCheckbox = () => {
-  setIsChecked(!isChecked);
-}
-
-useEffect(() => {
-  if (values.movie) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     searchMovies();
   }
-}, [isChecked])
 
-const handleFirstSearch = () => {
-  if (isFirstSearch) {
-    getMovies();
-  }
-}
+  useEffect(() => {
+    filterMovies();
+    if(values.movie) {
+      updateCheckboxParams();
+    }
+  }, [isChecked])
 
-const searchMovies = () => {
-  const movies = JSON.parse(localStorage.getItem('movies'));
-  let searchResult;
-
-  if (isChecked) {
-   searchResult = movies
-     .filter((movie) => movie.nameRU.toLowerCase().includes(values.movie.toLowerCase()))
-     .filter((movie) => movie.duration <= 40)
+  const updateCheckboxParams = () => {
+    const searchParams = JSON.parse(localStorage.getItem('searchParams'));
+    searchParams.checkbox = isChecked;
+    localStorage.setItem('searchParams', JSON.stringify(searchParams));
   }
 
-  if (!isChecked) {
-   searchResult = movies
-     .filter((movie) => movie.nameRU.toLowerCase().includes(values.movie.toLowerCase()))
-  }
-  localStorage.setItem('searchedMovies', JSON.stringify(searchResult));
-  handleSearchedMovies();
-  handleSearchParams();
-}
+  useEffect(() => {
+    getSearchParams();
+  }, [])
 
-const handleSearchParams = () => {
-  const searchParams = {
-    value: values.movie,
-    checkbox: isChecked
+  const getSearchParams = () => {
+    if (localStorage.getItem('searchParams')) {
+      const params = JSON.parse(localStorage.getItem('searchParams'));
+      setValues({movie: params.value});
+      setIsChecked(params.checkbox);
+    }
   }
-  localStorage.setItem('searchParams', JSON.stringify(searchParams));
-}
+
+  const toggleCheckbox = () => {
+    setIsChecked(!isChecked);
+  }
+/* перенести */
+  const handleFirstSearch = () => {
+    if (isFirstSearch) {
+      getMovies();
+      setIsFirstSearch(false);
+    }
+  }
+
+  const search = (movies) => {
+    return movies.filter((movie) => movie.nameRU.toLowerCase().includes(values.movie.toLowerCase()))
+  }
+
+  const filter = (searchResult) => {
+    return searchResult.filter((movie) => movie.duration <= 40)
+  }
+
+  const searchMovies = () => {
+    handleFirstSearch();
+    const movies = JSON.parse(localStorage.getItem('movies'));
+    if (isChecked) {
+      const searchResult = search(movies);
+      const filterResult = filter(searchResult);
+      localStorage.setItem('searchedMovies', JSON.stringify(searchResult));
+      handleSearchedMovies(filterResult);
+    }
+    if (!isChecked) {
+      const searchResult = search(movies);
+      localStorage.setItem('searchedMovies', JSON.stringify(searchResult));
+      handleSearchedMovies(searchResult);
+    }
+    setSearchParams();
+  }
+
+  const setSearchParams = () => {
+    localStorage.setItem('searchParams', JSON.stringify({ value: values.movie, checkbox: isChecked}));
+  }
+
+  const filterMovies = () => {
+    const movies = JSON.parse(localStorage.getItem('searchedMovies'));
+    const searchedMovies = JSON.parse(localStorage.getItem('searchedMovies'));
+    if (isChecked) {
+      const filterResult = filter(searchedMovies);
+      handleSearchedMovies(filterResult);
+    }
+    if (!isChecked) {
+      handleSearchedMovies(movies);
+    }
+  }
 
   return (
     <section className="search-form">

@@ -3,7 +3,6 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from 'react';
-import Preloader from '../Preloader/Preloader';
 
 const Movies = ({
   getMovies,
@@ -15,13 +14,17 @@ const Movies = ({
 
   const [movies, setMovies] = useState([]);
 
-  const handleSearchedMovies = () => {
+  const handleSearchedMovies = (searchedMovies) => {
+    setMovies(searchedMovies);
+  }
+
+  const renderSearchedMoviesOnMount = () => {
     const searchedMovies = JSON.parse(localStorage.getItem('searchedMovies'));
       setMovies(searchedMovies);
   }
 
   useEffect(() => {
-    handleSearchedMovies();
+    renderSearchedMoviesOnMount();
   }, [])
 
   return (
@@ -30,14 +33,12 @@ const Movies = ({
         getMovies={getMovies}
         handleSearchedMovies={handleSearchedMovies}
       />
-      {isLoaded
-      ? <Preloader/>
-      : <MoviesCardList
-          movies={movies}
-          addMovie={addMovie}
-          deleteSavedMovie={deleteSavedMovie}
-          savedMovies={savedMovies}/>
-      }
+      <MoviesCardList
+        movies={movies}
+        addMovie={addMovie}
+        deleteSavedMovie={deleteSavedMovie}
+        savedMovies={savedMovies}
+        isLoaded={isLoaded}/>
     </main>
   );
 }

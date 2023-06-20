@@ -16,6 +16,7 @@ import * as MoviesApi from '../../utils/MoviesApi';
 import ProtectedRouteElement from '../../components/ProtectedRoute/ProtectedRoute';
 import AuthRouteElement from '../AuthRoute/AuthRoute';
 import Popup from '../Popup/Popup';
+import { SERVER_ERROR } from '../../constants/error-texts';
 
 import './App.css';
 
@@ -39,16 +40,32 @@ const App = () => {
 
   useEffect(() => {
     isLoggedIn &&
-      Promise.all([MainApi.getUserInfo(), MainApi.getUserMovies()])
-        .then(([userInfo, userMovies]) => {
+      MainApi.getUserInfo()
+        .then((userInfo) => {
           setCurrentUser(userInfo);
-          setSavedMovies(userMovies);
         })
         .catch((err) => {
           setIsPopupOpen(true);
           setApiMessage(err.message);
         })
   }, [isLoggedIn])
+
+  useEffect(() => {
+    isLoggedIn &&
+    setIsLoaded(true)
+      MainApi.getUserMovies()
+        .then((userMovies) => {
+          setSavedMovies(userMovies);
+        })
+        .catch((err) => {
+          setIsPopupOpen(true);
+          setApiMessage(SERVER_ERROR);
+        })
+        .finally(() => {
+          setIsLoaded(false);
+        })
+  }, [isLoggedIn])
+
 
   const handleCheckToken = () => {
     if(localStorage.getItem('jwt')) {
@@ -112,7 +129,6 @@ const App = () => {
     setIsLoggedIn(false);
   }
 
-
   const handleUpdateUser = (values) => {
     MainApi.setUserInfo(values.name, values.email)
     .then((res) => {
@@ -125,17 +141,22 @@ const App = () => {
   }
 
   const getMovies = () => {
+    setIsLoaded(true);
     MoviesApi.getMovies()
     .then((res) => {
       localStorage.setItem('movies', JSON.stringify(res));
     })
-    .catch((err) => {
+    .catch(() => {
       setIsPopupOpen(true);
-      setApiMessage(err.message);
+      setApiMessage(SERVER_ERROR);
+    })
+    .finally(() => {
+      setIsLoaded(false);
     })
   }
 
   const addMovie = (movie) => {
+    setIsLoaded(true);
     MainApi.addMovie(movie)
     .then((newMovie) => {
       setSavedMovies([newMovie, ...savedMovies])
@@ -143,6 +164,9 @@ const App = () => {
     .catch((err) => {
       setIsPopupOpen(true);
       setApiMessage(err.message);
+    })
+    .finally(() => {
+      setIsLoaded(false);
     })
   }
 
@@ -152,6 +176,7 @@ const App = () => {
   }
 
   const deleteMovie = (id) => {
+    setIsLoaded(true);
     MainApi.deleteMovie(id)
     .then(() => {
       setSavedMovies((state) => state.filter((currentMovie) => currentMovie._id !== id));
@@ -159,6 +184,9 @@ const App = () => {
     .catch((err) => {
       setIsPopupOpen(true);
       setApiMessage(err.message);
+    })
+    .finally(() => {
+      setIsLoaded(false);
     })
   }
 
