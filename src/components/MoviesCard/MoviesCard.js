@@ -10,22 +10,23 @@ const MoviesCard = ({
   addMovie,
   deleteMovie,
   deleteSavedMovie,
-  savedMovies,
+  savedMovies
 }) => {
 
   const [isShown, setIsShown] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-
   const { pathname } = useLocation();
 
   useEffect(() => {
-        if (pathname === '/movies' && savedMovies.some((item) => item.movieId === movie.id)) {
+    if (pathname === '/movies' && savedMovies.some((item) => item.movieId === movie.id)) {
       setIsSaved(true)
+    }
+    if (pathname === '/movies' && !savedMovies.some((item) => item.movieId === movie.id)) {
+      setIsSaved(false)
     }
   }, [savedMovies, movie.id])
 
   const handleSaveMovie = () => {
-    setIsSaved(true)
     addMovie({
       country: movie.country,
       director: movie.director,
@@ -47,7 +48,6 @@ const MoviesCard = ({
 
   const handleDeleteSavedMovie = () => {
     deleteSavedMovie(movie.id);
-    setIsSaved(false)
   }
 
   return (

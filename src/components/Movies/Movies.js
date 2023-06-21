@@ -16,11 +16,6 @@ const Movies = ({
   const [movies, setMovies] = useState([]);
   const [isFirstSearch, setIsFirstSearch] = useState(true);
 
-
-  const handleSearchedMovies = (movieToRender) => {
-    setMovies(movieToRender);
-  }
-
   const renderSearchedMoviesOnMount = () => {
     const searchedMovies = JSON.parse(localStorage.getItem('searchedMovies'));
       setMovies(searchedMovies);
@@ -29,7 +24,6 @@ const Movies = ({
   useEffect(() => {
     renderSearchedMoviesOnMount();
   }, [])
-
 
   const getSearchParams = (setValues, setIsChecked) => {
     if (localStorage.getItem('searchParams')) {
@@ -59,12 +53,12 @@ const Movies = ({
       const searchResult = search(movies, values);
       const filterResult = filter(searchResult);
       localStorage.setItem('searchedMovies', JSON.stringify(searchResult));
-      handleSearchedMovies(filterResult);
+      setMovies(filterResult);
     }
     if (!isChecked) {
       const searchResult = search(movies, values);
       localStorage.setItem('searchedMovies', JSON.stringify(searchResult));
-      handleSearchedMovies(searchResult);
+      setMovies(searchResult);
     }
     setSearchParams(isChecked, values);
   }
@@ -78,18 +72,16 @@ const Movies = ({
     const searchedMovies = JSON.parse(localStorage.getItem('searchedMovies'));
     if (isChecked) {
       const filterResult = filter(searchedMovies);
-      handleSearchedMovies(filterResult);
+      setMovies(filterResult);
     }
     if (!isChecked) {
-      handleSearchedMovies(movies);
+      setMovies(movies);
     }
   }
 
   return (
     <main className="movies">
       <SearchForm
-        getMovies={getMovies}
-        handleSearchedMovies={handleSearchedMovies}
         getSearchParams={getSearchParams}
         searchMovies={searchMovies}
         filterMovies={filterMovies}
@@ -100,7 +92,8 @@ const Movies = ({
         addMovie={addMovie}
         deleteSavedMovie={deleteSavedMovie}
         savedMovies={savedMovies}
-        isLoaded={isLoaded}/>
+        isLoaded={isLoaded}
+      />
     </main>
   );
 }

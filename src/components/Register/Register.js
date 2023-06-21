@@ -2,10 +2,15 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import {
-  REGISTER_CONFLICT_ERROR,
-  REGISTER_BAD_REQUEST_ERROR,
-  AUTH_SERVER_ERROR } from '../../constants/error-texts';
+  REGISTER_CONFLICT_ERROR_MESSAGE,
+  REGISTER_BAD_REQUEST_ERROR_MESSAGE,
+  AUTH_SERVER_ERROR_MESSAGE } from '../../constants/error-texts';
 import './Register.css';
+import {
+  BAD_REQUEST_ERROR_CODE,
+  CONFLICT_ERROR_CODE,
+  SERVER_ERROR_CODE
+} from '../../constants/error-cods'
 
 const Register = ({ handleRegister, apiStatus, isFormInProcess }) => {
 
@@ -16,14 +21,14 @@ const Register = ({ handleRegister, apiStatus, isFormInProcess }) => {
   }, [apiStatus])
 
   const handleApiStatus = () => {
-    if (apiStatus === 400) {
-      setApiStatusText(REGISTER_BAD_REQUEST_ERROR)
+    if (apiStatus === BAD_REQUEST_ERROR_CODE) {
+      setApiStatusText(REGISTER_BAD_REQUEST_ERROR_MESSAGE)
     }
-    if (apiStatus === 409) {
-      setApiStatusText(REGISTER_CONFLICT_ERROR)
+    if (apiStatus === CONFLICT_ERROR_CODE) {
+      setApiStatusText(REGISTER_CONFLICT_ERROR_MESSAGE)
     }
-    if (apiStatus === 500) {
-      setApiStatusText(AUTH_SERVER_ERROR)
+    if (apiStatus === SERVER_ERROR_CODE) {
+      setApiStatusText(AUTH_SERVER_ERROR_MESSAGE)
     }
   }
 

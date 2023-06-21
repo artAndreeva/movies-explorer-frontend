@@ -27,11 +27,11 @@ const MoviesCardList = ({
 
   const { pathname } = useLocation();
   const size = useWindowSize();
-
   const [slicedMovies, setSlicedMovies] = useState([]);
   const [moreMovies, setMoreMovies] = useState(null);
   const [isShown, setIsShown] = useState(false);
   const [noResult, setNoResult] = useState(false);
+  const [moviesToRender, setMoviesToRender] = useState([]);
 
   const sliceMovies = () => {
     if (size.width) {
@@ -86,6 +86,15 @@ const MoviesCardList = ({
     }
   }
 
+  useEffect(() => {
+    if (pathname === '/movies') {
+      setMoviesToRender(slicedMovies);
+    }
+    if (pathname === '/saved-movies') {
+      setMoviesToRender(movies.reverse());
+    }
+  }, [slicedMovies, movies])
+
   return (
     <section className="movies-card-list">
       {isLoaded
@@ -93,7 +102,7 @@ const MoviesCardList = ({
       : <>{noResult
         ? <span className="movies-card-list__no-result">Ничего не найдено</span>
         : <ul className="movies-card-list__list">
-            {slicedMovies.map((movie) => (
+            {moviesToRender.map((movie) => (
               <MoviesCard
                 key={movie.id || movie._id}
                 movie={movie}

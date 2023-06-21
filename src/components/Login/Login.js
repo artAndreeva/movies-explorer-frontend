@@ -2,11 +2,17 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import {
-  AUTH_BAD_REQUEST_ERROR,
-  AUTH_UNAUTHORIZED_ERROR,
-  AUTH_TOKEN_ERROR,
-  AUTH_SERVER_ERROR } from '../../constants/error-texts';
+  AUTH_BAD_REQUEST_ERROR_MESSAGE,
+  AUTH_UNAUTHORIZED_ERROR_MESSAGE,
+  AUTH_FORBIDDEN_MESSAGE,
+  AUTH_SERVER_ERROR_MESSAGE } from '../../constants/error-texts';
 import './Login.css';
+import {
+  BAD_REQUEST_ERROR_CODE,
+  UNAUTHORIZED_ERROR_CODE,
+  FORBIDDEN_ERROR_CODE,
+  SERVER_ERROR_CODE
+} from '../../constants/error-cods'
 
 const Login = ({ handleLogin, apiStatus, isFormInProcess }) => {
 
@@ -17,17 +23,17 @@ const Login = ({ handleLogin, apiStatus, isFormInProcess }) => {
   }, [apiStatus])
 
   const handleApiStatus = () => {
-    if (apiStatus === 400) {
-      setApiStatusText(AUTH_BAD_REQUEST_ERROR)
+    if (apiStatus === BAD_REQUEST_ERROR_CODE) {
+      setApiStatusText(AUTH_BAD_REQUEST_ERROR_MESSAGE)
     }
-    if (apiStatus === 401) {
-      setApiStatusText(AUTH_UNAUTHORIZED_ERROR)
+    if (apiStatus === UNAUTHORIZED_ERROR_CODE) {
+      setApiStatusText(AUTH_UNAUTHORIZED_ERROR_MESSAGE)
     }
-    if (apiStatus === 403) {
-      setApiStatusText(AUTH_TOKEN_ERROR)
+    if (apiStatus === FORBIDDEN_ERROR_CODE) {
+      setApiStatusText(AUTH_FORBIDDEN_MESSAGE)
     }
-    if (apiStatus === 500) {
-      setApiStatusText(AUTH_SERVER_ERROR)
+    if (apiStatus === SERVER_ERROR_CODE) {
+      setApiStatusText(AUTH_SERVER_ERROR_MESSAGE)
     }
   }
 

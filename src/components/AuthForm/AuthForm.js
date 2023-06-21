@@ -20,7 +20,7 @@ const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, on
         <Logo/>
         <h2 className="auth-form__greeting">{greetingText}</h2>
         <form
-          className="auth-form__form"
+          className="auth-form__form form"
           name="auth-form"
           id="auth-form"
           onSubmit={handleSubmit}

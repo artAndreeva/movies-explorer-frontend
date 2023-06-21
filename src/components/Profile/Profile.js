@@ -4,12 +4,18 @@ import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import {
-  PROFILE_OK_STATUS,
-  REGISTER_BAD_REQUEST_ERROR,
-  REGISTER_CONFLICT_ERROR,
-  AUTH_SERVER_ERROR } from '../../constants/error-texts';
+  PROFILE_OK_STATUS_MESSAGE,
+  REGISTER_BAD_REQUEST_ERROR_MESSAGE,
+  REGISTER_CONFLICT_ERROR_MESSAGE,
+  AUTH_SERVER_ERROR_MESSAGE } from '../../constants/error-texts';
+import {
+  OK_STATUS_CODE,
+  BAD_REQUEST_ERROR_CODE,
+  CONFLICT_ERROR_CODE,
+  SERVER_ERROR_CODE
+} from '../../constants/error-cods'
 
-const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess, apiAction }) => {
+const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess }) => {
 
   const { values, handleChange, isValid, setValues } = useFormAndValidation({});
   const currentUser = useContext(CurrentUserContext);
@@ -18,12 +24,6 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess, a
   const [apiStatusText, setApiStatusText] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [isApiDisabled, setIsApiDisabled] = useState(true);
-
-  useEffect(() => {
-      if (apiAction) {
-        setIsRedact(true);
-      }
-  }, [apiAction])
 
   useEffect(() => {
     if (currentUser) {
@@ -58,20 +58,20 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess, a
   }, [apiStatus])
 
   const handleApiStatus = () => {
-    if (apiStatus === 200) {
-      setApiStatusText(PROFILE_OK_STATUS);
+    if (apiStatus === OK_STATUS_CODE) {
+      setApiStatusText(PROFILE_OK_STATUS_MESSAGE);
       setIsSuccess(true);
     }
-    if (apiStatus === 400) {
-      setApiStatusText(REGISTER_BAD_REQUEST_ERROR);
+    if (apiStatus === BAD_REQUEST_ERROR_CODE) {
+      setApiStatusText(REGISTER_BAD_REQUEST_ERROR_MESSAGE);
       setIsSuccess(false);
     }
-    if (apiStatus === 409) {
-      setApiStatusText(REGISTER_CONFLICT_ERROR);
+    if (apiStatus === CONFLICT_ERROR_CODE) {
+      setApiStatusText(REGISTER_CONFLICT_ERROR_MESSAGE);
       setIsSuccess(false);
     }
-    if (apiStatus === 500) {
-      setApiStatusText(AUTH_SERVER_ERROR);
+    if (apiStatus === SERVER_ERROR_CODE) {
+      setApiStatusText(AUTH_SERVER_ERROR_MESSAGE);
       setIsSuccess(false);
     }
   }
@@ -80,7 +80,7 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess, a
     <main className="profile">
       <div className="profile__container">
         <h2 className="profile__greeting">Привет, {currentUser.name}!</h2>
-        <form className="profile__form" onSubmit={handleSubmit}>
+        <form className="profile__form form" onSubmit={handleSubmit}>
           <div className="profile__fieldset">
             <div className="profile__field">
               <label className="profile__label" htmlFor="name">Имя</label>
@@ -90,7 +90,8 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess, a
                 name="name"
                 value={values.name || ''}
                 onChange={handleChange}
-                disabled={!isRedact || isFormInProcess}/>
+                disabled={!isRedact || isFormInProcess}
+                required/>
             </div>
             <div className="profile__field">
               <label className="profile__label" htmlFor="email">E-mail</label>
@@ -100,7 +101,8 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess, a
                 name="email"
                 value={values.email || ''}
                 onChange={handleChange}
-                disabled={!isRedact || isFormInProcess}/>
+                disabled={!isRedact || isFormInProcess}
+                required/>
             </div>
           </div>
           <div className="profile__buttons">

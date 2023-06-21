@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './SearchForm.css';
 
-const SearchForm = ({ getMovies, handleSearchedMovies, getSearchParams, searchMovies, filterMovies, updateCheckboxParams }) => {
+const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckboxParams }) => {
 
   const { values, handleChange, setValues } = useFormAndValidation({});
   const [isChecked, setIsChecked] = useState(false);

@@ -13,19 +13,22 @@ const SavedMovies = ({
 
   const [movies, setMovies] = useState([]);
   const [result, setResult] = useState([]);
+  const [savedMoviesData, setSavedMoviesData] = useState([]);
 
-  useEffect(() => {
+   useEffect(() => {
     setMovies(savedMovies);
-  }, [])
+    setSavedMoviesData(savedMovies);
+  }, [savedMovies])
 
   const searchMovies = (isChecked, values) => {
     if (isChecked) {
-      const searchResult = search(savedMovies, values);
+      const searchResult = search(savedMoviesData, values);
       const filterResult = filter(searchResult);
+      setResult(searchResult);
       setMovies(filterResult);
     }
     if (!isChecked) {
-      const searchResult = search(movies, values);
+      const searchResult = search(savedMoviesData, values);
       setResult(searchResult);
       setMovies(searchResult);
     }

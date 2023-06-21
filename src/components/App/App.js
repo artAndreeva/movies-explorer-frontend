@@ -17,10 +17,10 @@ import ProtectedRouteElement from '../../components/ProtectedRoute/ProtectedRout
 import AuthRouteElement from '../AuthRoute/AuthRoute';
 import Popup from '../Popup/Popup';
 import {
-  SERVER_ERROR,
-  DELETE_MOVIE_ERROR,
-  ADD_MOVIE_ERROR,
-  TOKEN_ERROR } from '../../constants/error-texts';
+  SERVER_ERROR_MESSAGE,
+  DELETE_MOVIE_ERROR_MESSAGE,
+  ADD_MOVIE_ERROR_MESSAGE,
+  TOKEN_ERROR_MESSAGE } from '../../constants/error-texts';
 import './App.css';
 
 const App = () => {
@@ -33,7 +33,6 @@ const App = () => {
   const [isTokenChecked, setIsTokenChecked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [apiAction, setApiAction] = useState(false);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -51,7 +50,7 @@ const App = () => {
         })
         .catch((err) => {
           setIsPopupOpen(true);
-          setApiMessage(SERVER_ERROR);
+          setApiMessage(SERVER_ERROR_MESSAGE);
         })
   }, [isLoggedIn])
 
@@ -66,7 +65,7 @@ const App = () => {
       })
       .catch(() => {
         setIsPopupOpen(true);
-        setApiMessage(TOKEN_ERROR);
+        setApiMessage(TOKEN_ERROR_MESSAGE);
       })
       .finally(() => {
         setIsTokenChecked(true);
@@ -126,7 +125,6 @@ const App = () => {
     })
     .catch((err) => {
       setApiStatus(err.status);
-      setApiAction(true);
     })
     .finally(() => {
       setIsFormInProcess(false);
@@ -141,7 +139,7 @@ const App = () => {
     })
     .catch(() => {
       setIsPopupOpen(true);
-      setApiMessage(SERVER_ERROR);
+      setApiMessage(SERVER_ERROR_MESSAGE);
     })
     .finally(() => {
       setIsLoaded(false);
@@ -151,11 +149,11 @@ const App = () => {
   const addMovie = (movie) => {
     MainApi.addMovie(movie)
     .then((newMovie) => {
-      setSavedMovies([newMovie, ...savedMovies])
+      setSavedMovies([ ...savedMovies, newMovie]);
     })
     .catch(() => {
       setIsPopupOpen(true);
-      setApiMessage(ADD_MOVIE_ERROR);
+      setApiMessage(ADD_MOVIE_ERROR_MESSAGE);
     })
     .finally(() => {
     })
@@ -173,7 +171,7 @@ const App = () => {
     })
     .catch(() => {
       setIsPopupOpen(true);
-      setApiMessage(DELETE_MOVIE_ERROR);
+      setApiMessage(DELETE_MOVIE_ERROR_MESSAGE);
     })
     .finally(() => {
     })
@@ -223,7 +221,6 @@ const App = () => {
                   apiStatus={apiStatus}
                   handleLogout={handleLogout}
                   isFormInProcess={isFormInProcess}
-                  apiAction={apiAction}
                   />
               }/>
               <Route path='/signin' element={
