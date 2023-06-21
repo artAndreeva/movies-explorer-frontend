@@ -5,6 +5,16 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import Preloader from '../Preloader/Preloader';
+import {
+  START_NUMBER,
+  TABLET_SIZE,
+  MOBILE_SIZE,
+  DESKTOP_NUMBER,
+  TABLET_NUMBER,
+  MOBILE_NUMBER,
+  DESKTOP_MORE_NUMBER,
+  TABLET_MORE_NUMBER
+} from '../../constants/slice-card-numbers'
 
 const MoviesCardList = ({
   movies,
@@ -25,16 +35,16 @@ const MoviesCardList = ({
 
   const sliceMovies = () => {
     if (size.width) {
-      setSlicedMovies(movies.slice(0, 12));
-      setMoreMovies(3);
+      setSlicedMovies(movies.slice(START_NUMBER, DESKTOP_NUMBER));
+      setMoreMovies(DESKTOP_MORE_NUMBER);
     }
-    if (size.width <= 768) {
-      setSlicedMovies(movies.slice(0, 8));
-      setMoreMovies(2);
+    if (size.width <= TABLET_SIZE) {
+      setSlicedMovies(movies.slice(START_NUMBER, TABLET_NUMBER));
+      setMoreMovies(TABLET_MORE_NUMBER);
     }
-    if (size.width <= 480) {
-      setSlicedMovies(movies.slice(0, 5));
-      setMoreMovies(2);
+    if (size.width <= MOBILE_SIZE) {
+      setSlicedMovies(movies.slice(START_NUMBER, MOBILE_NUMBER));
+      setMoreMovies(TABLET_MORE_NUMBER);
     }
   }
 
@@ -47,7 +57,6 @@ const MoviesCardList = ({
   useEffect(() => {
     if (movies) {
       toggleButton();
-      handleNoResult();
     }
   }, [movies, slicedMovies, moreMovies])
 
@@ -58,7 +67,7 @@ const MoviesCardList = ({
   }, [movies])
 
   const showMoreMovies = () => {
-    setSlicedMovies(movies.slice(0, (slicedMovies.length + moreMovies)));
+    setSlicedMovies(movies.slice(START_NUMBER, (slicedMovies.length + moreMovies)));
   }
 
   const toggleButton = () => {

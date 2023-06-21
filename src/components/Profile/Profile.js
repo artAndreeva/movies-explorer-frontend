@@ -3,8 +3,13 @@ import './Profile.css';
 import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import {
+  PROFILE_OK_STATUS,
+  REGISTER_BAD_REQUEST_ERROR,
+  REGISTER_CONFLICT_ERROR,
+  AUTH_SERVER_ERROR } from '../../constants/error-texts';
 
-const Profile = ({ handleUpdateUser, apiStatus, handleLogout }) => {
+const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess, apiAction }) => {
 
   const { values, handleChange, isValid, setValues } = useFormAndValidation({});
   const currentUser = useContext(CurrentUserContext);
@@ -13,6 +18,12 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout }) => {
   const [apiStatusText, setApiStatusText] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [isApiDisabled, setIsApiDisabled] = useState(true);
+
+  useEffect(() => {
+      if (apiAction) {
+        setIsRedact(true);
+      }
+  }, [apiAction])
 
   useEffect(() => {
     if (currentUser) {
@@ -48,15 +59,19 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout }) => {
 
   const handleApiStatus = () => {
     if (apiStatus === 200) {
-      setApiStatusText('Данные успешно обновлены');
+      setApiStatusText(PROFILE_OK_STATUS);
       setIsSuccess(true);
     }
+    if (apiStatus === 400) {
+      setApiStatusText(REGISTER_BAD_REQUEST_ERROR);
+      setIsSuccess(false);
+    }
     if (apiStatus === 409) {
-      setApiStatusText('Пользователь с таким email уже существует.');
+      setApiStatusText(REGISTER_CONFLICT_ERROR);
       setIsSuccess(false);
     }
     if (apiStatus === 500) {
-      setApiStatusText('При обновлении профиля произошла ошибка.');
+      setApiStatusText(AUTH_SERVER_ERROR);
       setIsSuccess(false);
     }
   }
@@ -70,22 +85,22 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout }) => {
             <div className="profile__field">
               <label className="profile__label" htmlFor="name">Имя</label>
               <input
-                className="profile__input"
+                className="profile__input input"
                 id="name"
                 name="name"
                 value={values.name || ''}
                 onChange={handleChange}
-                disabled={!isRedact}/>
+                disabled={!isRedact || isFormInProcess}/>
             </div>
             <div className="profile__field">
               <label className="profile__label" htmlFor="email">E-mail</label>
               <input
-                className="profile__input"
+                className="profile__input input"
                 id="email"
                 name="email"
                 value={values.email || ''}
                 onChange={handleChange}
-                disabled={!isRedact}/>
+                disabled={!isRedact || isFormInProcess}/>
             </div>
           </div>
           <div className="profile__buttons">

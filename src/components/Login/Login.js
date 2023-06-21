@@ -1,6 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
+import {
+  AUTH_BAD_REQUEST_ERROR,
+  AUTH_UNAUTHORIZED_ERROR,
+  AUTH_TOKEN_ERROR,
+  AUTH_SERVER_ERROR } from '../../constants/error-texts';
 import './Login.css';
 
 const Login = ({ handleLogin, apiStatus, isFormInProcess }) => {
@@ -13,13 +18,16 @@ const Login = ({ handleLogin, apiStatus, isFormInProcess }) => {
 
   const handleApiStatus = () => {
     if (apiStatus === 400) {
-      setApiStatusText('Вы ввели неправильный логин или пароль.')
+      setApiStatusText(AUTH_BAD_REQUEST_ERROR)
     }
     if (apiStatus === 401) {
-      setApiStatusText('При авторизации произошла ошибка. Токен не передан или передан не в том формате.')
+      setApiStatusText(AUTH_UNAUTHORIZED_ERROR)
     }
     if (apiStatus === 403) {
-      setApiStatusText('При авторизации произошла ошибка. Переданный токен некорректен.')
+      setApiStatusText(AUTH_TOKEN_ERROR)
+    }
+    if (apiStatus === 500) {
+      setApiStatusText(AUTH_SERVER_ERROR)
     }
   }
 

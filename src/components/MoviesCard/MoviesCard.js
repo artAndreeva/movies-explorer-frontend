@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import './MoviesCard.css';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { LINK_URL } from '../../constants/link-url'
+import { convertTime } from '../../utils/convert-time'
 
 const MoviesCard = ({
   movie,
@@ -30,11 +32,11 @@ const MoviesCard = ({
       duration: movie.duration,
       year: movie.year,
       description: movie.description,
-      image: `https://api.nomoreparties.co/${movie.image.url}`,
+      image: `${LINK_URL}${movie.image.url}`,
       trailerLink: movie.trailerLink,
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
-      thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
+      thumbnail: `${LINK_URL}${movie.image.formats.thumbnail.url}`,
       movieId: movie.id
     });
   }
@@ -57,7 +59,7 @@ const MoviesCard = ({
       >
         <a href={movie.trailerLink} target="_blank" rel="noopener noreferrer">
           <img
-            src={pathname === '/movies' ? `https://api.nomoreparties.co/${movie.image.url}`: movie.image}
+            src={pathname === '/movies' ? `${LINK_URL}${movie.image.url}`: movie.image}
             alt={movie.nameRU}
             className="movies-card__image"/>
         </a>
@@ -70,7 +72,7 @@ const MoviesCard = ({
       </div>
       <div className="movies-card__info">
         <span className="movies-card__description">{movie.nameRU}</span>
-        <span className="movies-card__duration">{`${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`}</span>
+        <span className="movies-card__duration">{convertTime(movie.duration)}</span>
       </div>
     </li>
   );

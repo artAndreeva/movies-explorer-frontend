@@ -16,8 +16,11 @@ import * as MoviesApi from '../../utils/MoviesApi';
 import ProtectedRouteElement from '../../components/ProtectedRoute/ProtectedRoute';
 import AuthRouteElement from '../AuthRoute/AuthRoute';
 import Popup from '../Popup/Popup';
-import { SERVER_ERROR } from '../../constants/error-texts';
-
+import {
+  SERVER_ERROR,
+  DELETE_MOVIE_ERROR,
+  ADD_MOVIE_ERROR,
+  TOKEN_ERROR } from '../../constants/error-texts';
 import './App.css';
 
 const App = () => {
@@ -30,6 +33,7 @@ const App = () => {
   const [isTokenChecked, setIsTokenChecked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [apiAction, setApiAction] = useState(false);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -40,32 +44,16 @@ const App = () => {
 
   useEffect(() => {
     isLoggedIn &&
-      MainApi.getUserInfo()
-        .then((userInfo) => {
+    Promise.all(([MainApi.getUserInfo(), MainApi.getUserMovies()]))
+        .then(([userInfo, userMovies]) => {
           setCurrentUser(userInfo);
-        })
-        .catch((err) => {
-          setIsPopupOpen(true);
-          setApiMessage(err.message);
-        })
-  }, [isLoggedIn])
-
-  useEffect(() => {
-    isLoggedIn &&
-    setIsLoaded(true)
-      MainApi.getUserMovies()
-        .then((userMovies) => {
           setSavedMovies(userMovies);
         })
         .catch((err) => {
           setIsPopupOpen(true);
           setApiMessage(SERVER_ERROR);
         })
-        .finally(() => {
-          setIsLoaded(false);
-        })
   }, [isLoggedIn])
-
 
   const handleCheckToken = () => {
     if(localStorage.getItem('jwt')) {
@@ -76,9 +64,9 @@ const App = () => {
           setIsLoggedIn(true);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         setIsPopupOpen(true);
-        setApiMessage(err.message);
+        setApiMessage(TOKEN_ERROR);
       })
       .finally(() => {
         setIsTokenChecked(true);
@@ -130,6 +118,7 @@ const App = () => {
   }
 
   const handleUpdateUser = (values) => {
+    setIsFormInProcess(true);
     MainApi.setUserInfo(values.name, values.email)
     .then((res) => {
       setCurrentUser(res);
@@ -137,6 +126,10 @@ const App = () => {
     })
     .catch((err) => {
       setApiStatus(err.status);
+      setApiAction(true);
+    })
+    .finally(() => {
+      setIsFormInProcess(false);
     })
   }
 
@@ -156,17 +149,15 @@ const App = () => {
   }
 
   const addMovie = (movie) => {
-    setIsLoaded(true);
     MainApi.addMovie(movie)
     .then((newMovie) => {
       setSavedMovies([newMovie, ...savedMovies])
     })
-    .catch((err) => {
+    .catch(() => {
       setIsPopupOpen(true);
-      setApiMessage(err.message);
+      setApiMessage(ADD_MOVIE_ERROR);
     })
     .finally(() => {
-      setIsLoaded(false);
     })
   }
 
@@ -176,17 +167,15 @@ const App = () => {
   }
 
   const deleteMovie = (id) => {
-    setIsLoaded(true);
     MainApi.deleteMovie(id)
     .then(() => {
       setSavedMovies((state) => state.filter((currentMovie) => currentMovie._id !== id));
     })
-    .catch((err) => {
+    .catch(() => {
       setIsPopupOpen(true);
-      setApiMessage(err.message);
+      setApiMessage(DELETE_MOVIE_ERROR);
     })
     .finally(() => {
-      setIsLoaded(false);
     })
   }
 
@@ -233,6 +222,8 @@ const App = () => {
                   handleUpdateUser={handleUpdateUser}
                   apiStatus={apiStatus}
                   handleLogout={handleLogout}
+                  isFormInProcess={isFormInProcess}
+                  apiAction={apiAction}
                   />
               }/>
               <Route path='/signin' element={
