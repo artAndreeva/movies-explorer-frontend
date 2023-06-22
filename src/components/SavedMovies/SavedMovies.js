@@ -1,9 +1,9 @@
 import React from 'react';
-import './SavedMovies.css';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import SearchForm from '../SearchForm/SearchForm';
 import { useEffect, useState } from 'react';
 import { search, filter } from '../../utils/search';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
+import './SavedMovies.css';
 
 const SavedMovies = ({
   savedMovies,
@@ -58,7 +58,6 @@ const SavedMovies = ({
     }
     if (!isChecked) {
       setMovies(result);
-      setNoResult(false);
     }
   }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import './Profile.css';
 import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
@@ -13,7 +12,8 @@ import {
   BAD_REQUEST_ERROR_CODE,
   CONFLICT_ERROR_CODE,
   SERVER_ERROR_CODE
-} from '../../constants/error-cods'
+} from '../../constants/error-cods';
+import './Profile.css';
 
 const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess }) => {
 
@@ -36,7 +36,7 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess })
     setIsApiDisabled(true);
   }
 
-   useEffect(() => {
+  useEffect(() => {
     if (values.name === currentUser.name && values.email === currentUser.email) {
       setIsButtonDisabled(true);
     }

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import validator from 'validator';
 import { regExName } from '../constants/regExName';
 
@@ -11,8 +11,11 @@ export function useFormAndValidation() {
     const { name, value } = e.target
     setValues({ ...values, [name]: value });
     validateFields(name, value);
-    setIsValid();
   };
+
+ useEffect(() => {
+  setIsValid(Object.keys(errors).length === 0)
+ }, [errors])
 
   const validateFields = (name, value) => {
     if (name === 'movie') {
@@ -33,7 +36,7 @@ export function useFormAndValidation() {
     if (value.length === 0) {
       setErrors({ ...errors, [name]: 'Нужно ввести ключевое слово' });
     } else {
-      setErrors({ ...errors, [name]: '' });
+      setErrors((state) => Object.assign({}, Object.keys(state).filter((key) => key !== name)));
     }
   }
 
@@ -47,7 +50,7 @@ export function useFormAndValidation() {
     } else if (!regExName.test(value)) {
       setErrors({ ...errors, [name]: 'Неверный формат имени' });
     } else {
-      setErrors({ ...errors, [name]: '' });
+      setErrors((state) => Object.assign({}, Object.keys(state).filter((key) => key !== name)));
     }
   }
 
@@ -61,7 +64,7 @@ export function useFormAndValidation() {
     } else if (!validator.isEmail(value)) {
       setErrors({ ...errors, [name]: 'Неверный формат почты' });
     } else {
-      setErrors({ ...errors, [name]: '' });
+      setErrors((state) => Object.assign({}, Object.keys(state).filter((key) => key !== name)));
     }
   }
 
@@ -73,7 +76,7 @@ export function useFormAndValidation() {
     } else if (value.length > 30) {
       setErrors({ ...errors, [name]: 'Пароль должен быть не более 30 символов' });
     } else {
-      setErrors({ ...errors, [name]: '' });
+      setErrors((state) => Object.assign({}, Object.keys(state).filter((key) => key !== name)));
     }
   }
 

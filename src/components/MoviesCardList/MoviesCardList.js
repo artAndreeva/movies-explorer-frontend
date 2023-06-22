@@ -1,10 +1,6 @@
 import React from 'react';
-import MoviesCard from '../MoviesCard/MoviesCard';
-import useWindowSize from '../../hooks/useWindowSize';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import './MoviesCardList.css';
-import Preloader from '../Preloader/Preloader';
 import {
   START_NUMBER,
   TABLET_SIZE,
@@ -15,6 +11,10 @@ import {
   DESKTOP_MORE_NUMBER,
   TABLET_MORE_NUMBER
 } from '../../constants/slice-card-numbers'
+import Preloader from '../Preloader/Preloader';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import useWindowSize from '../../hooks/useWindowSize';
+import './MoviesCardList.css';
 
 const MoviesCardList = ({
   movies,

@@ -5,12 +5,12 @@ import {
   REGISTER_CONFLICT_ERROR_MESSAGE,
   REGISTER_BAD_REQUEST_ERROR_MESSAGE,
   AUTH_SERVER_ERROR_MESSAGE } from '../../constants/error-texts';
-import './Register.css';
 import {
   BAD_REQUEST_ERROR_CODE,
   CONFLICT_ERROR_CODE,
   SERVER_ERROR_CODE
-} from '../../constants/error-cods'
+} from '../../constants/error-cods';
+import './Register.css';
 
 const Register = ({ handleRegister, apiStatus, isFormInProcess }) => {
 
