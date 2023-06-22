@@ -33,7 +33,6 @@ const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckbox
     setIsChecked(!isChecked);
   }
 
-
   return (
     <section className="search-form">
       <form

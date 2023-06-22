@@ -10,7 +10,8 @@ const MoviesCard = ({
   addMovie,
   deleteMovie,
   deleteSavedMovie,
-  savedMovies
+  savedMovies,
+  getDeletedMovie
 }) => {
 
   const [isShown, setIsShown] = useState(false);
@@ -44,6 +45,7 @@ const MoviesCard = ({
 
   const handleDeleteMovie = () => {
     deleteMovie(movie._id);
+    getDeletedMovie(movie._id);
   }
 
   const handleDeleteSavedMovie = () => {

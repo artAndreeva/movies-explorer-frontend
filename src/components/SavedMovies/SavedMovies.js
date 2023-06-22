@@ -14,11 +14,25 @@ const SavedMovies = ({
   const [movies, setMovies] = useState([]);
   const [result, setResult] = useState([]);
   const [savedMoviesData, setSavedMoviesData] = useState([]);
+  const [noResult, setNoResult] = useState(false);
+  const [deletedMovieId, setDeletedMovieId] = useState(null);
 
-   useEffect(() => {
+  useEffect(() => {
     setMovies(savedMovies);
     setSavedMoviesData(savedMovies);
-  }, [savedMovies])
+  }, [])
+
+  const getDeletedMovie = (id) => {
+    setDeletedMovieId(id);
+  }
+
+  useEffect(() => {
+    if (!savedMovies.some((item) => item._id === deletedMovieId)) {
+      setResult((state) => state.filter((currentMovie) => currentMovie._id !== deletedMovieId));
+      setSavedMoviesData((state) => state.filter((currentMovie) => currentMovie._id !== deletedMovieId));
+      setMovies((state) => state.filter((currentMovie) => currentMovie._id !== deletedMovieId));
+    }
+  }, [deletedMovieId, savedMovies])
 
   const searchMovies = (isChecked, values) => {
     if (isChecked) {
@@ -26,11 +40,13 @@ const SavedMovies = ({
       const filterResult = filter(searchResult);
       setResult(searchResult);
       setMovies(filterResult);
+      handleNoResult(filterResult);
     }
     if (!isChecked) {
       const searchResult = search(savedMoviesData, values);
       setResult(searchResult);
       setMovies(searchResult);
+      handleNoResult(searchResult);
     }
   }
 
@@ -38,9 +54,19 @@ const SavedMovies = ({
     if (isChecked) {
       const filterResult = filter(result);
       setMovies(filterResult);
+      handleNoResult(filterResult);
     }
     if (!isChecked) {
       setMovies(result);
+      setNoResult(false);
+    }
+  }
+
+  const handleNoResult = (res) => {
+    if (res.length === 0) {
+      setNoResult(true);
+    } else {
+      setNoResult(false);
     }
   }
 
@@ -52,7 +78,9 @@ const SavedMovies = ({
       <MoviesCardList
         movies={movies}
         deleteMovie={deleteMovie}
-        isLoaded={isLoaded}/>
+        isLoaded={isLoaded}
+        noResult={noResult}
+        getDeletedMovie={getDeletedMovie}/>
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Logo from '../Logo/Logo';
 import { Link, useLocation } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
@@ -6,14 +6,13 @@ import './AuthForm.css';
 
 const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, onSubmit, apiStatusText, isFormInProcess }) => {
 
-    const { pathname } = useLocation();
-    const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation({});
+  const { pathname } = useLocation();
+  const { values, handleChange, errors, isValid } = useFormAndValidation({});
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      onSubmit(values);
-      resetForm();
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(values);
+  }
 
   return (
       <div className="auth-form">

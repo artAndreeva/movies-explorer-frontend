@@ -41,70 +41,69 @@ const App = () => {
     handleCheckToken();
   }, [])
 
-  useEffect(() => {
-    isLoggedIn &&
-    Promise.all(([MainApi.getUserInfo(), MainApi.getUserMovies()]))
-        .then(([userInfo, userMovies]) => {
-          setCurrentUser(userInfo);
-          setSavedMovies(userMovies);
-        })
-        .catch((err) => {
-          setIsPopupOpen(true);
-          setApiMessage(SERVER_ERROR_MESSAGE);
-        })
-  }, [isLoggedIn])
-
-  const handleCheckToken = () => {
-    if(localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      MainApi.checkToken(jwt)
-      .then((res) => {
-        if(res) {
-          setIsLoggedIn(true);
-        }
-      })
-      .catch(() => {
-        setIsPopupOpen(true);
-        setApiMessage(TOKEN_ERROR_MESSAGE);
-      })
-      .finally(() => {
-        setIsTokenChecked(true);
-      })
-    } else {
-      setIsTokenChecked(true);
+  const getUserInfoAndMovies = async () => {
+    try {
+      const [userInfo, userMovies] = await Promise.all([MainApi.getUserInfo(), MainApi.getUserMovies()]);
+      setCurrentUser(userInfo);
+      setSavedMovies(userMovies.reverse());
+    } catch {
+      setIsPopupOpen(true);
+      setApiMessage(SERVER_ERROR_MESSAGE);
     }
   }
 
-  const handleRegister = (values) => {
-    setIsFormInProcess(true);
-    MainApi.register(values.name, values.email, values.password)
-      .then (() => {
-        handleLogin(values);
-      })
-      .catch((err) => {
-        setApiStatus(err.status);
-      })
-      .finally(() => {
-        setIsFormInProcess(false);
-      })
+  useEffect(() => {
+    isLoggedIn &&
+    getUserInfoAndMovies();
+  }, [isLoggedIn])
+
+  const handleCheckToken = async () => {
+    try {
+      if (localStorage.getItem('jwt')) {
+        const jwt = localStorage.getItem('jwt');
+        const res = await MainApi.checkToken(jwt);
+        if (res) {
+          setIsLoggedIn(true);
+        }
+      }
+    } catch {
+      setIsPopupOpen(true);
+      setApiMessage(TOKEN_ERROR_MESSAGE);
+    } finally {
+      setTimeout(() => {
+        setIsTokenChecked(true);
+      }, 500)
+    }
   }
 
-  const handleLogin = (values) => {
+  const handleRegister = async (values) => {
     setIsFormInProcess(true);
-    MainApi.authorize(values.email, values.password)
-      .then((res) => {
-        if (res.token) {
-          localStorage.setItem('jwt', res.token);
-          setIsLoggedIn(true);
-          navigate('/movies', {replace: true});
-        }
-      })
-      .catch((err) => {
-        setApiStatus(err.status);
-      })
-      .finally(() => {
-        setIsFormInProcess(false);
-      })
+    try {
+      await MainApi.register(values.name, values.email, values.password);
+      handleLogin(values);
+    } catch (err) {
+      setApiStatus(err.status);
+    } finally {
+        setTimeout(() => {
+          setIsFormInProcess(false);
+      }, 500)
+    }
+  }
+
+  const handleLogin = async (values) => {
+    setIsFormInProcess(true);
+    try {
+      const res = await MainApi.authorize(values.email, values.password);
+      localStorage.setItem('jwt', res.token);
+      setIsLoggedIn(true);
+      navigate('/movies', {replace: true});
+    } catch (err) {
+      setApiStatus(err.status);
+    } finally {
+        setTimeout(() => {
+          setIsFormInProcess(false);
+      }, 500)
+    }
   }
 
   const handleLogout = () => {
@@ -113,50 +112,49 @@ const App = () => {
     localStorage.removeItem('movies');
     localStorage.removeItem('searchedMovies');
     localStorage.removeItem('searchParams');
+    setApiStatus(null);
+    setApiMessage('');
     setIsLoggedIn(false);
   }
 
-  const handleUpdateUser = (values) => {
+  const handleUpdateUser = async (values) => {
     setIsFormInProcess(true);
-    MainApi.setUserInfo(values.name, values.email)
-    .then((res) => {
+    try {
+      const res = await MainApi.setUserInfo(values.name, values.email);
       setCurrentUser(res);
       setApiStatus(200);
-    })
-    .catch((err) => {
+    } catch (err) {
       setApiStatus(err.status);
-    })
-    .finally(() => {
-      setIsFormInProcess(false);
-    })
+    } finally {
+      setTimeout(() => {
+        setIsFormInProcess(false);
+      }, 500)
+    }
   }
 
-  const getMovies = () => {
+  const getMovies = async () => {
     setIsLoaded(true);
-    MoviesApi.getMovies()
-    .then((res) => {
+    try {
+      const res = await MoviesApi.getMovies()
       localStorage.setItem('movies', JSON.stringify(res));
-    })
-    .catch(() => {
+    } catch {
       setIsPopupOpen(true);
       setApiMessage(SERVER_ERROR_MESSAGE);
-    })
-    .finally(() => {
-      setIsLoaded(false);
-    })
+    } finally {
+      setTimeout(() => {
+        setIsLoaded(false);
+      }, 500)
+    }
   }
 
-  const addMovie = (movie) => {
-    MainApi.addMovie(movie)
-    .then((newMovie) => {
-      setSavedMovies([ ...savedMovies, newMovie]);
-    })
-    .catch(() => {
+  const addMovie = async (movie) => {
+    try {
+      const newMovie = await MainApi.addMovie(movie);
+      setSavedMovies([newMovie, ...savedMovies]);
+    } catch {
       setIsPopupOpen(true);
       setApiMessage(ADD_MOVIE_ERROR_MESSAGE);
-    })
-    .finally(() => {
-    })
+    }
   }
 
   const deleteSavedMovie = (id) => {
@@ -164,17 +162,14 @@ const App = () => {
     deleteMovie(savedMovie._id);
   }
 
-  const deleteMovie = (id) => {
-    MainApi.deleteMovie(id)
-    .then(() => {
+  const deleteMovie = async (id) => {
+    try {
+      await MainApi.deleteMovie(id);
       setSavedMovies((state) => state.filter((currentMovie) => currentMovie._id !== id));
-    })
-    .catch(() => {
+    } catch {
       setIsPopupOpen(true);
       setApiMessage(DELETE_MOVIE_ERROR_MESSAGE);
-    })
-    .finally(() => {
-    })
+    }
   }
 
   const closePopup = () => {
@@ -202,6 +197,9 @@ const App = () => {
                   addMovie={addMovie}
                   deleteSavedMovie={deleteSavedMovie}
                   savedMovies={savedMovies}
+                  setIsPopupOpen={setApiMessage}
+                  setApiMessage={setApiMessage}
+                  setIsLoaded={setIsLoaded}
                 />
               }/>
               <Route path='/saved-movies' element={
@@ -236,7 +234,7 @@ const App = () => {
                 <AuthRouteElement
                   Component={Register}
                   isLoggedIn={isLoggedIn}
-                  handleLogin={handleRegister}
+                  handleRegister={handleRegister}
                   apiStatus={apiStatus}
                   isFormInProcess={isFormInProcess}
                 />

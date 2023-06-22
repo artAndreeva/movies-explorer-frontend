@@ -22,7 +22,9 @@ const MoviesCardList = ({
   deleteMovie,
   deleteSavedMovie,
   savedMovies,
-  isLoaded
+  isLoaded,
+  noResult,
+  getDeletedMovie
 }) => {
 
   const { pathname } = useLocation();
@@ -30,7 +32,6 @@ const MoviesCardList = ({
   const [slicedMovies, setSlicedMovies] = useState([]);
   const [moreMovies, setMoreMovies] = useState(null);
   const [isShown, setIsShown] = useState(false);
-  const [noResult, setNoResult] = useState(false);
   const [moviesToRender, setMoviesToRender] = useState([]);
 
   const sliceMovies = () => {
@@ -48,6 +49,10 @@ const MoviesCardList = ({
     }
   }
 
+  const showMoreMovies = () => {
+    setSlicedMovies(movies.slice(START_NUMBER, (slicedMovies.length + moreMovies)));
+  }
+
   useEffect(() => {
     if (movies) {
       sliceMovies();
@@ -57,18 +62,10 @@ const MoviesCardList = ({
   useEffect(() => {
     if (movies) {
       toggleButton();
+    } else {
+      setIsShown(false);
     }
   }, [movies, slicedMovies, moreMovies])
-
-  useEffect(() => {
-    if (movies) {
-      handleNoResult();
-    }
-  }, [movies])
-
-  const showMoreMovies = () => {
-    setSlicedMovies(movies.slice(START_NUMBER, (slicedMovies.length + moreMovies)));
-  }
 
   const toggleButton = () => {
     if (movies.length < (slicedMovies.length + moreMovies)) {
@@ -78,20 +75,12 @@ const MoviesCardList = ({
     }
   }
 
-  const handleNoResult = () => {
-    if (movies.length === 0) {
-      setNoResult(true);
-    } else {
-      setNoResult(false);
-    }
-  }
-
   useEffect(() => {
     if (pathname === '/movies') {
       setMoviesToRender(slicedMovies);
     }
     if (pathname === '/saved-movies') {
-      setMoviesToRender(movies.reverse());
+      setMoviesToRender(movies);
     }
   }, [slicedMovies, movies])
 
@@ -100,22 +89,26 @@ const MoviesCardList = ({
       {isLoaded
       ? <Preloader/>
       : <>{noResult
-        ? <span className="movies-card-list__no-result">Ничего не найдено</span>
-        : <ul className="movies-card-list__list">
-            {moviesToRender.map((movie) => (
-              <MoviesCard
-                key={movie.id || movie._id}
-                movie={movie}
-                addMovie={addMovie}
-                deleteMovie={deleteMovie}
-                deleteSavedMovie={deleteSavedMovie}
-                savedMovies={savedMovies}
-              />
-            ))}
-          </ul>
-        }</>
+          ? <span className="movies-card-list__no-result">Ничего не найдено</span>
+          : <><ul className="movies-card-list__list">
+                {moviesToRender.map((movie) => (
+                  <MoviesCard
+                    key={movie.id || movie._id}
+                    movie={movie}
+                    addMovie={addMovie}
+                    deleteMovie={deleteMovie}
+                    deleteSavedMovie={deleteSavedMovie}
+                    savedMovies={savedMovies}
+                    getDeletedMovie={getDeletedMovie}
+                  />
+                ))}
+              </ul>
+              {pathname === '/movies' && (isShown && <button className="movies-card-list__button button" onClick={showMoreMovies}>Ещё</button>)}
+            </>
+          }
+        </>
       }
-      {pathname === '/movies' && (isShown && <button className="movies-card-list__button button" onClick={showMoreMovies}>Ещё</button>)}
+
     </section>
   );
 }
