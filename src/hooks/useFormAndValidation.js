@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import validator from 'validator';
+import { regExName } from '../constants/regExName';
 
 export function useFormAndValidation() {
   const [values, setValues] = useState({});
@@ -10,7 +11,7 @@ export function useFormAndValidation() {
     const { name, value } = e.target
     setValues({ ...values, [name]: value });
     validateFields(name, value);
-    setIsValid(!errors.name || errors.name === '');
+    setIsValid();
   };
 
   const validateFields = (name, value) => {
@@ -31,33 +32,36 @@ export function useFormAndValidation() {
   const validateMovieField = (name, value) => {
     if (value.length === 0) {
       setErrors({ ...errors, [name]: 'Нужно ввести ключевое слово' });
+    } else {
+      setErrors({ ...errors, [name]: '' });
     }
   }
 
   const validateNameField = (name, value) => {
     if (value.length === 0) {
       setErrors({ ...errors, [name]: 'Это поле не может быть пустым' });
-    }
-    if (value.length < 2) {
-      setErrors({ ...errors, [name]: 'Пароль должен быть не менее 2 символов' });
-    }
-    if (value.length > 30) {
-      setErrors({ ...errors, [name]: 'Пароль должен быть не более 30 символов' });
+    } else if (value.length < 2) {
+      setErrors({ ...errors, [name]: 'Имя должено быть не менее 2 символов' });
+    } else if (value.length > 30) {
+      setErrors({ ...errors, [name]: 'Имя должено быть не более 30 символов' });
+    } else if (!regExName.test(value)) {
+      setErrors({ ...errors, [name]: 'Неверный формат имени' });
+    } else {
+      setErrors({ ...errors, [name]: '' });
     }
   }
 
   const validateEmailField = (name, value) => {
     if (value.length === 0) {
       setErrors({ ...errors, [name]: 'Это поле не может быть пустым' });
-    }
-    if (value.length < 6) {
-      setErrors({ ...errors, [name]: 'Пароль должен быть не менее 6 символов' });
-    }
-    if (value.length > 30) {
-      setErrors({ ...errors, [name]: 'Пароль должен быть не более 30 символов' });
-    }
-    if (!validator.isEmail(value)) {
+    } else if (value.length < 6) {
+      setErrors({ ...errors, [name]: 'Почта должена быть не менее 6 символов' });
+    } else if (value.length > 30) {
+      setErrors({ ...errors, [name]: 'Почта должена быть не более 30 символов' });
+    } else if (!validator.isEmail(value)) {
       setErrors({ ...errors, [name]: 'Неверный формат почты' });
+    } else {
+      setErrors({ ...errors, [name]: '' });
     }
   }
 
