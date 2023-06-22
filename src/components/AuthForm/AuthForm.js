@@ -34,9 +34,6 @@ const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, on
                   type="text"
                   id="name"
                   name="name"
-                  required
-                  minLength="2"
-                  maxLength="40"
                   value={values.name || ''}
                   onChange={handleChange}
                   disabled={isFormInProcess}
@@ -51,9 +48,6 @@ const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, on
                 type="email"
                 id="email"
                 name="email"
-                required
-                minLength="6"
-                maxLength="40"
                 value={values.email || ''}
                 onChange={handleChange}
                 disabled={isFormInProcess}
@@ -67,9 +61,6 @@ const AuthForm = ({ greetingText, buttonText, questionText, urlPath, urlText, on
                 type="password"
                 id="password"
                 name="password"
-                required
-                minLength="8"
-                maxLength="40"
                 value={values.password || ''}
                 onChange={handleChange}
                 disabled={isFormInProcess}
