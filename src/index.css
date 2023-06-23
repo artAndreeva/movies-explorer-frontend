@@ -19,6 +19,10 @@
   opacity: .8;
 }
 
+.button:focus {
+  outline: 2.5px solid #e2e2e2;
+}
+
 .input:focus {
   outline: 2.5px solid #e2e2e2;
 }

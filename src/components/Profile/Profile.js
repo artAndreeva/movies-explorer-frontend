@@ -17,7 +17,7 @@ import './Profile.css';
 
 const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess }) => {
 
-  const { values, handleChange, isValid, setValues } = useFormAndValidation({});
+  const { values, handleChange, isValid, setValues, errors } = useFormAndValidation({});
   const currentUser = useContext(CurrentUserContext);
   const [isRedact, setIsRedact] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -39,9 +39,10 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess })
   useEffect(() => {
     if (values.name === currentUser.name && values.email === currentUser.email) {
       setIsButtonDisabled(true);
-    }
-    if (isValid && (values.name !== currentUser.name || values.email !== currentUser.email)) {
+    } else if (isValid && (values.name !== currentUser.name || values.email !== currentUser.email)) {
       setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
     }
   }, [values])
 
@@ -85,24 +86,32 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess })
             <div className="profile__field">
               <label className="profile__label" htmlFor="name">Имя</label>
               <input
-                className="profile__input input"
+                className={`profile__input input ${errors.name && 'profile__input-error'}`}
                 id="name"
                 name="name"
                 value={values.name || ''}
                 onChange={handleChange}
                 disabled={!isRedact || isFormInProcess}
-                required/>
+                required
+                minLength={2}
+                maxLength={30}
+                pattern='^(?!\s)[A-Za-zА-Яа-я\-\s]+$'
+                />
             </div>
             <div className="profile__field">
               <label className="profile__label" htmlFor="email">E-mail</label>
               <input
-                className="profile__input input"
+                className={`profile__input input ${errors.email && 'profile__input-error'}`}
                 id="email"
                 name="email"
                 value={values.email || ''}
                 onChange={handleChange}
                 disabled={!isRedact || isFormInProcess}
-                required/>
+                required
+                minLength={6}
+                maxLength={30}
+                pattern='^.+@.+\..+$'
+                />
             </div>
           </div>
           <div className="profile__buttons">
@@ -110,7 +119,7 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess })
             {isRedact
             ?
               <div className="profile__buttons">
-                <button className="profile__button button input" disabled={isButtonDisabled}>Сохранить</button>
+                <button className="profile__button button" disabled={isButtonDisabled}>Сохранить</button>
               </div>
             :
               <div className="profile__buttons">

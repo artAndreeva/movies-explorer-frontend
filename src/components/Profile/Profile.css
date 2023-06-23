@@ -134,6 +134,10 @@
   width: 130px;
 }
 
+.profile__input-error {
+  color: rgba(238, 52, 101, 1);
+}
+
 @media screen and (max-width: 768px) {
   .profile__greeting {
     margin-bottom: 80px;

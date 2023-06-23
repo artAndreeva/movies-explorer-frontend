@@ -9,12 +9,30 @@ const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckbox
 
   const { values, handleChange, setValues } = useFormAndValidation({});
   const [isChecked, setIsChecked] = useState(false);
+  const [isMovieError, setIsMovieError] = useState(false);
+  const [isInputEnpty, setIsInputEmpty] = useState(false);
   const { pathname } = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    searchMovies(isChecked, values);
+    if(!values.movie) {
+      setIsInputEmpty(true);
+      setIsMovieError(true);
+    } else {
+      searchMovies(isChecked, values);
+    }
   }
+
+  useEffect(() => {
+    if(values.movie) {
+      setIsMovieError(false);
+    }
+    if (isInputEnpty) {
+      setIsMovieError(true);
+      setIsInputEmpty(false)
+    }
+  }, [values, isInputEnpty])
+
 
   useEffect(() => {
     filterMovies(isChecked);
@@ -36,7 +54,7 @@ const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckbox
   return (
     <section className="search-form">
       <form
-        className="search-form__form"
+        className="search-form__form form"
         name="search-form"
         onSubmit={handleSubmit}
         noValidate
@@ -45,13 +63,15 @@ const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckbox
           <input
             className='search-form__input input'
             type='text'
-            placeholder='Фильм'
+            placeholder={!isMovieError ? 'Фильм' : undefined}
             name='movie'
             id='movie'
             value={values.movie || ''}
             onChange={handleChange}
+            required
           />
-          <button className='search-form__button button input'>Поиск</button>
+          <button className='search-form__button button'>Поиск</button>
+          {isMovieError && <span className='search-form__input-error'>Нужно ввести ключевое слово</span>}
         </div>
         <FilterCheckbox
           toggleCheckbox={toggleCheckbox}

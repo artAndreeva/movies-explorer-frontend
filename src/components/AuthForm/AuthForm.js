@@ -46,6 +46,10 @@ const AuthForm = ({
                 value={values.name || ''}
                 onChange={handleChange}
                 disabled={isFormInProcess}
+                required
+                minLength={2}
+                maxLength={30}
+                pattern='^(?!\s)[A-Za-zА-Яа-я\-\s]+$'
               />
               {errors.name && <span className="auth-form__validation-error">{errors.name}</span>}
             </div>
@@ -60,6 +64,10 @@ const AuthForm = ({
               value={values.email || ''}
               onChange={handleChange}
               disabled={isFormInProcess}
+              required
+              minLength={6}
+              maxLength={30}
+              pattern='^.+@.+\..+$'
             />
             {errors.email && <span className="auth-form__validation-error">{errors.email}</span>}
           </div>
@@ -73,13 +81,16 @@ const AuthForm = ({
               value={values.password || ''}
               onChange={handleChange}
               disabled={isFormInProcess}
+              required
+              minLength={8}
+              maxLength={30}
             />
             {errors.password && <span className="auth-form__validation-error">{errors.password}</span>}
           </div>
         </fieldset>
         <div className="auth-form__submit">
           {apiStatusText && <span className="auth-form__api-error">{apiStatusText}</span>}
-          <button className="auth-form__button button input" disabled={!isValid || isFormInProcess}>{buttonText}</button>
+          <button className="auth-form__button button" disabled={!isValid || isFormInProcess}>{buttonText}</button>
           <span className="auth-form__text">{questionText}
             <Link to={urlPath} className="auth-form__to-register link"> {urlText}</Link>
           </span>
