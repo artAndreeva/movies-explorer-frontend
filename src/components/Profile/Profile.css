@@ -78,6 +78,10 @@
   margin: 0 0 20px;
 }
 
+.profile__api-error_not-error {
+  color: #2BE080;
+}
+
 .profile__button {
   border: none;
   width: 100%;
@@ -128,6 +132,10 @@
   color: #EE3465;
   padding: 0;
   width: 130px;
+}
+
+.profile__input-error {
+  color: rgba(238, 52, 101, 1);
 }
 
 @media screen and (max-width: 768px) {

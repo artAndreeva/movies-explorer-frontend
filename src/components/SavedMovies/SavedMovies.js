@@ -1,14 +1,99 @@
 import React from 'react';
-import './SavedMovies.css';
+import { useEffect, useState } from 'react';
+import { search, filter } from '../../utils/search';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
-import savedmovies from '../../utils/savedmovies';
+import './SavedMovies.css';
 
-const SavedMovies = () => {
+const SavedMovies = ({
+  savedMovies,
+  deleteMovie,
+  isLoaded
+}) => {
+
+  const [movies, setMovies] = useState([]);
+  const [result, setResult] = useState([]);
+  const [savedMoviesData, setSavedMoviesData] = useState([]);
+  const [noResult, setNoResult] = useState(false);
+  const [deletedMovieId, setDeletedMovieId] = useState(null);
+  const [itWasSearch, setItWasSearch] = useState(false);
+
+  useEffect(() => {
+    setMovies(savedMovies);
+    setSavedMoviesData(savedMovies);
+  }, [])
+
+  const getDeletedMovie = (id) => {
+    setDeletedMovieId(id);
+  }
+
+  useEffect(() => {
+    if (!savedMovies.some((item) => item._id === deletedMovieId)) {
+      setResult((state) => state.filter((currentMovie) => currentMovie._id !== deletedMovieId));
+      setSavedMoviesData((state) => state.filter((currentMovie) => currentMovie._id !== deletedMovieId));
+      setMovies((state) => state.filter((currentMovie) => currentMovie._id !== deletedMovieId));
+    }
+  }, [deletedMovieId, savedMovies])
+
+  const searchMovies = (isChecked, values) => {
+    setItWasSearch(true);
+    if (isChecked) {
+      const searchResult = search(savedMoviesData, values);
+      const filterResult = filter(searchResult);
+      setResult(searchResult);
+      setMovies(filterResult);
+      handleNoResult(filterResult);
+    }
+    if (!isChecked) {
+      const searchResult = search(savedMoviesData, values);
+      setResult(searchResult);
+      setMovies(searchResult);
+      handleNoResult(searchResult);
+    }
+  }
+
+  const filterMovies = (isChecked) => {
+    let dataToFilter;
+    let dataToRender;
+
+    if (itWasSearch) {
+      dataToFilter = result;
+      dataToRender = result;
+    } else {
+      dataToFilter = savedMoviesData;
+      dataToRender = savedMoviesData;
+    }
+
+    if (isChecked) {
+      const filterResult = filter(dataToFilter);
+      setMovies(filterResult);
+      handleNoResult(filterResult);
+    }
+    if (!isChecked) {
+      setMovies(dataToRender);
+      setNoResult(false);
+    }
+  }
+
+  const handleNoResult = (res) => {
+    if (res.length === 0) {
+      setNoResult(true);
+    } else {
+      setNoResult(false);
+    }
+  }
+
   return (
     <main className="saved-movies">
-      <SearchForm/>
-      <MoviesCardList movies={savedmovies}/>
+      <SearchForm
+        searchMovies={searchMovies}
+        filterMovies={filterMovies}/>
+      <MoviesCardList
+        movies={movies}
+        deleteMovie={deleteMovie}
+        isLoaded={isLoaded}
+        noResult={noResult}
+        getDeletedMovie={getDeletedMovie}/>
     </main>
   );
 }

@@ -31,6 +31,10 @@
   text-decoration: none;
 }
 
+.navigation__link_white {
+  color: #ffffff;
+}
+
 .navigation__link_active {
   font-weight: 500;
   position: relative;

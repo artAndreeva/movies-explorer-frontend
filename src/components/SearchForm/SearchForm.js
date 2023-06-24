@@ -1,17 +1,60 @@
 import React from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './SearchForm.css';
 
-const SearchForm = () => {
+const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckboxParams, isFormInProcess }) => {
+
+  const { values, handleChange, setValues } = useFormAndValidation({});
+  const [isChecked, setIsChecked] = useState(false);
+  const [isMovieError, setIsMovieError] = useState(false);
+  const [isInputEmpty, setIsInputEmpty] = useState(false);
+  const { pathname } = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!values.movie) {
+      setIsInputEmpty(true);
+      setIsMovieError(true);
+    } else {
+      searchMovies(isChecked, values);
+    }
+  }
+
+  useEffect(() => {
+    if(values.movie) {
+      setIsMovieError(false);
+    }
+    if (isInputEmpty) {
+      setIsMovieError(true);
+      setIsInputEmpty(false)
+    }
+  }, [values, isInputEmpty])
+
+
+  useEffect(() => {
+    filterMovies(isChecked);
+    if(pathname === '/movies' && values.movie && (localStorage.getItem('searchedMovies'))) {
+      updateCheckboxParams(isChecked);
+    }
+  }, [isChecked])
+
+  useEffect(() => {
+    if(pathname === '/movies') {
+      getSearchParams(setValues, setIsChecked);
+    }
+  }, [])
+
+  const toggleCheckbox = () => {
+    setIsChecked(!isChecked);
   }
 
   return (
     <section className="search-form">
       <form
-        className="search-form__form"
+        className="search-form__form form"
         name="search-form"
         onSubmit={handleSubmit}
         noValidate
@@ -20,11 +63,20 @@ const SearchForm = () => {
           <input
             className='search-form__input input'
             type='text'
-            placeholder='Фильм'
+            placeholder={!isMovieError ? 'Фильм' : undefined}
+            name='movie'
+            id='movie'
+            value={values.movie || ''}
+            onChange={handleChange}
+            disabled={isFormInProcess}
+            required
           />
-          <button className='search-form__button button input'>Поиск</button>
+          <button className='search-form__button button'>Поиск</button>
+          {isMovieError && <span className='search-form__input-error'>Нужно ввести ключевое слово</span>}
         </div>
-        <FilterCheckbox/>
+        <FilterCheckbox
+          toggleCheckbox={toggleCheckbox}
+          isChecked={isChecked}/>
       </form>
     </section>
   );

@@ -77,6 +77,7 @@
   position: absolute;
   width: 100%;
   max-height: 32px;
+  gap: 10px;
 }
 
 .movies-card__description {
@@ -92,7 +93,7 @@
 }
 
 .movies-card__duration {
-  width: 52px;
+  min-width: 52px;
   height: 18px;
   background-color: #F9F9F9;
   border-radius: 3px;
