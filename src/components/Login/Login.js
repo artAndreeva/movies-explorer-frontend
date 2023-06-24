@@ -14,7 +14,7 @@ import {
   SERVER_ERROR_CODE
 } from '../../constants/error-cods'
 
-const Login = ({ handleLogin, apiStatus, isFormInProcess }) => {
+const Login = ({ handleLogin, apiStatus, isFormInProcess, setApiStatus }) => {
 
   const [apiStatusText, setApiStatusText] = useState('');
 
@@ -48,6 +48,7 @@ const Login = ({ handleLogin, apiStatus, isFormInProcess }) => {
         apiStatusText={apiStatusText}
         onSubmit={handleLogin}
         isFormInProcess={isFormInProcess}
+        setApiStatus={setApiStatus}
       />
     </main>
   );

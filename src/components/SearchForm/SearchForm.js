@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './SearchForm.css';
 
-const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckboxParams }) => {
+const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckboxParams, isFormInProcess }) => {
 
   const { values, handleChange, setValues } = useFormAndValidation({});
   const [isChecked, setIsChecked] = useState(false);
   const [isMovieError, setIsMovieError] = useState(false);
-  const [isInputEnpty, setIsInputEmpty] = useState(false);
+  const [isInputEmpty, setIsInputEmpty] = useState(false);
   const { pathname } = useLocation();
 
   const handleSubmit = (e) => {
@@ -27,11 +27,11 @@ const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckbox
     if(values.movie) {
       setIsMovieError(false);
     }
-    if (isInputEnpty) {
+    if (isInputEmpty) {
       setIsMovieError(true);
       setIsInputEmpty(false)
     }
-  }, [values, isInputEnpty])
+  }, [values, isInputEmpty])
 
 
   useEffect(() => {
@@ -68,6 +68,7 @@ const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckbox
             id='movie'
             value={values.movie || ''}
             onChange={handleChange}
+            disabled={isFormInProcess}
             required
           />
           <button className='search-form__button button'>Поиск</button>

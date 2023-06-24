@@ -5,9 +5,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from 'react';
 import { search, filter } from '../../utils/search';
 import { SERVER_ERROR_MESSAGE } from '../../constants/error-texts';
+import * as MoviesApi from '../../utils/MoviesApi';
 
 const Movies = ({
-  getMovies,
   addMovie,
   deleteSavedMovie,
   savedMovies,
@@ -15,6 +15,8 @@ const Movies = ({
   setIsPopupOpen,
   setApiMessage,
   setIsLoaded,
+  isFormInProcess,
+  setIsFormInProcess
 }) => {
 
   const [movies, setMovies] = useState([]);
@@ -45,9 +47,11 @@ const Movies = ({
 
   const searchMovies = async (isChecked, values) => {
     setIsLoaded(true);
+    setIsFormInProcess(true)
     try {
       if (!localStorage.getItem('movies')) {
-        await getMovies();
+        const res = await MoviesApi.getMovies()
+        localStorage.setItem('movies', JSON.stringify(res));
       }
       const movies = JSON.parse(localStorage.getItem('movies'));
       if (isChecked) {
@@ -70,6 +74,7 @@ const Movies = ({
     } finally {
       setTimeout(() => {
         setIsLoaded(false);
+        setIsFormInProcess(false)
       }, 1000)
     }
   }
@@ -81,13 +86,14 @@ const Movies = ({
   const filterMovies = (isChecked) => {
     const movies = JSON.parse(localStorage.getItem('searchedMovies'));
     const searchedMovies = JSON.parse(localStorage.getItem('searchedMovies'));
-    if (isChecked) {
+    if (isChecked && movies) {
       const filterResult = filter(searchedMovies);
       setMovies(filterResult);
       handleNoResult(filterResult);
     }
-    if (!isChecked) {
+    if (!isChecked && movies) {
       setMovies(movies);
+      setNoResult(false);
     }
   }
 
@@ -106,6 +112,7 @@ const Movies = ({
         searchMovies={searchMovies}
         filterMovies={filterMovies}
         updateCheckboxParams={updateCheckboxParams}
+        isFormInProcess={isFormInProcess}
       />
       <MoviesCardList
         movies={movies}

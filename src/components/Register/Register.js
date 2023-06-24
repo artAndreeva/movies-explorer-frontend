@@ -12,7 +12,7 @@ import {
 } from '../../constants/error-cods';
 import './Register.css';
 
-const Register = ({ handleRegister, apiStatus, isFormInProcess }) => {
+const Register = ({ handleRegister, apiStatus, isFormInProcess, setApiStatus }) => {
 
   const [apiStatusText, setApiStatusText] = useState('');
 
@@ -43,6 +43,7 @@ const Register = ({ handleRegister, apiStatus, isFormInProcess }) => {
         apiStatusText={apiStatusText}
         onSubmit={handleRegister}
         isFormInProcess={isFormInProcess}
+        setApiStatus={setApiStatus}
       />
     </main>
   );

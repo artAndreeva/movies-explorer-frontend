@@ -16,6 +16,7 @@ const SavedMovies = ({
   const [savedMoviesData, setSavedMoviesData] = useState([]);
   const [noResult, setNoResult] = useState(false);
   const [deletedMovieId, setDeletedMovieId] = useState(null);
+  const [itWasSearch, setItWasSearch] = useState(false);
 
   useEffect(() => {
     setMovies(savedMovies);
@@ -35,6 +36,7 @@ const SavedMovies = ({
   }, [deletedMovieId, savedMovies])
 
   const searchMovies = (isChecked, values) => {
+    setItWasSearch(true);
     if (isChecked) {
       const searchResult = search(savedMoviesData, values);
       const filterResult = filter(searchResult);
@@ -51,13 +53,25 @@ const SavedMovies = ({
   }
 
   const filterMovies = (isChecked) => {
+    let dataToFilter;
+    let dataToRender;
+
+    if (itWasSearch) {
+      dataToFilter = result;
+      dataToRender = result;
+    } else {
+      dataToFilter = savedMoviesData;
+      dataToRender = savedMoviesData;
+    }
+
     if (isChecked) {
-      const filterResult = filter(result);
+      const filterResult = filter(dataToFilter);
       setMovies(filterResult);
       handleNoResult(filterResult);
     }
     if (!isChecked) {
-      setMovies(result);
+      setMovies(dataToRender);
+      setNoResult(false);
     }
   }
 

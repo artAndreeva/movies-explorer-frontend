@@ -15,7 +15,7 @@ import {
 } from '../../constants/error-cods';
 import './Profile.css';
 
-const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess }) => {
+const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess, setApiStatus }) => {
 
   const { values, handleChange, isValid, setValues, errors } = useFormAndValidation({});
   const currentUser = useContext(CurrentUserContext);
@@ -51,11 +51,14 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess })
     handleUpdateUser(values);
     setValues(currentUser);
     setIsApiDisabled(false);
-    setIsRedact(false);
+    setApiStatus(null);
   }
 
   useEffect(() => {
     handleApiStatus();
+    if(apiStatus === OK_STATUS_CODE) {
+      setIsRedact(false);
+    }
   }, [apiStatus])
 
   const handleApiStatus = () => {
@@ -95,7 +98,7 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess })
                 required
                 minLength={2}
                 maxLength={30}
-                pattern='^(?!\s)[A-Za-zА-Яа-я\-\s]+$'
+                pattern='^[\-\sA-Za-zА-Яа-я]*$'
                 />
             </div>
             <div className="profile__field">
@@ -110,7 +113,7 @@ const Profile = ({ handleUpdateUser, apiStatus, handleLogout, isFormInProcess })
                 required
                 minLength={6}
                 maxLength={30}
-                pattern='^.+@.+\..+$'
+                pattern='[a-zA-Z0-9\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z]*'
                 />
             </div>
           </div>

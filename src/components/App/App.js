@@ -12,7 +12,6 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import * as MainApi from '../../utils/MainApi';
-import * as MoviesApi from '../../utils/MoviesApi';
 import ProtectedRouteElement from '../../components/ProtectedRoute/ProtectedRoute';
 import AuthRouteElement from '../AuthRoute/AuthRoute';
 import Popup from '../Popup/Popup';
@@ -132,21 +131,6 @@ const App = () => {
     }
   }
 
-  const getMovies = async () => {
-    setIsLoaded(true);
-    try {
-      const res = await MoviesApi.getMovies()
-      localStorage.setItem('movies', JSON.stringify(res));
-    } catch {
-      setIsPopupOpen(true);
-      setApiMessage(SERVER_ERROR_MESSAGE);
-    } finally {
-      setTimeout(() => {
-        setIsLoaded(false);
-      }, 500)
-    }
-  }
-
   const addMovie = async (movie) => {
     try {
       const newMovie = await MainApi.addMovie(movie);
@@ -187,19 +171,20 @@ const App = () => {
             : null}
 
             <Routes>
-            <Route path='/' element={<Main/>}/>
+              <Route path='/' element={<Main/>}/>
               <Route path='/movies' element={
                 <ProtectedRouteElement
                   Component={Movies}
                   isLoggedIn={isLoggedIn}
                   isLoaded={isLoaded}
-                  getMovies={getMovies}
                   addMovie={addMovie}
                   deleteSavedMovie={deleteSavedMovie}
                   savedMovies={savedMovies}
-                  setIsPopupOpen={setApiMessage}
+                  setIsPopupOpen={setIsPopupOpen}
                   setApiMessage={setApiMessage}
                   setIsLoaded={setIsLoaded}
+                  isFormInProcess={isFormInProcess}
+                  setIsFormInProcess={setIsFormInProcess}
                 />
               }/>
               <Route path='/saved-movies' element={
@@ -219,6 +204,7 @@ const App = () => {
                   apiStatus={apiStatus}
                   handleLogout={handleLogout}
                   isFormInProcess={isFormInProcess}
+                  setApiStatus={setApiStatus}
                   />
               }/>
               <Route path='/signin' element={
@@ -227,6 +213,7 @@ const App = () => {
                   isLoggedIn={isLoggedIn}
                   handleLogin={handleLogin}
                   apiStatus={apiStatus}
+                  setApiStatus={setApiStatus}
                   isFormInProcess={isFormInProcess}
                 />
               }/>
@@ -236,6 +223,8 @@ const App = () => {
                   isLoggedIn={isLoggedIn}
                   handleRegister={handleRegister}
                   apiStatus={apiStatus}
+                  setApiStatus={setApiStatus}
+                  setApiMessage={setApiMessage}
                   isFormInProcess={isFormInProcess}
                 />
               }/>

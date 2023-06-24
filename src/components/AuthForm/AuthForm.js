@@ -12,7 +12,8 @@ const AuthForm = ({
   urlText,
   onSubmit,
   apiStatusText,
-  isFormInProcess
+  isFormInProcess,
+  setApiStatus
 }) => {
 
   const { pathname } = useLocation();
@@ -49,7 +50,7 @@ const AuthForm = ({
                 required
                 minLength={2}
                 maxLength={30}
-                pattern='^(?!\s)[A-Za-zА-Яа-я\-\s]+$'
+                pattern='^[\-\sA-Za-zА-Яа-я]*$'
               />
               {errors.name && <span className="auth-form__validation-error">{errors.name}</span>}
             </div>
@@ -67,7 +68,7 @@ const AuthForm = ({
               required
               minLength={6}
               maxLength={30}
-              pattern='^.+@.+\..+$'
+              pattern='[a-zA-Z0-9\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z]*'
             />
             {errors.email && <span className="auth-form__validation-error">{errors.email}</span>}
           </div>
@@ -92,7 +93,7 @@ const AuthForm = ({
           {apiStatusText && <span className="auth-form__api-error">{apiStatusText}</span>}
           <button className="auth-form__button button" disabled={!isValid || isFormInProcess}>{buttonText}</button>
           <span className="auth-form__text">{questionText}
-            <Link to={urlPath} className="auth-form__to-register link"> {urlText}</Link>
+            <Link to={urlPath} className="auth-form__to-register link" onClick={() => setApiStatus(null)}> {urlText}</Link>
           </span>
         </div>
       </form>
