@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './SearchForm.css';
 
-const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckboxParams, isFormInProcess }) => {
+const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckboxParams, isFormInProcess, movies }) => {
 
   const { values, handleChange, setValues } = useFormAndValidation({});
   const [isChecked, setIsChecked] = useState(false);
@@ -36,7 +36,7 @@ const SearchForm = ({getSearchParams, searchMovies, filterMovies, updateCheckbox
 
   useEffect(() => {
     filterMovies(isChecked);
-    if(pathname === '/movies' && values.movie) {
+    if(pathname === '/movies' && values.movie && (localStorage.getItem('searchedMovies'))) {
       updateCheckboxParams(isChecked);
     }
   }, [isChecked])
