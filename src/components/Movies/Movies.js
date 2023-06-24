@@ -113,7 +113,6 @@ const Movies = ({
         filterMovies={filterMovies}
         updateCheckboxParams={updateCheckboxParams}
         isFormInProcess={isFormInProcess}
-        movies={movies}
       />
       <MoviesCardList
         movies={movies}
