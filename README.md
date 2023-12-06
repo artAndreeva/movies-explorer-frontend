@@ -1,3 +1,34 @@
-[Ссылка на архив](https://disk.yandex.ru/d/NFgACFwjEZDJjQ)
+# Movies Explorer
 
-[Figma](https://www.figma.com/file/x3rMakkGqdmGhCzbyPGLBN/Diploma-(Copy)?type=design&node-id=891%3A3857&t=EqhSxb9mZ1oWDUlO-1)
+Адаптивный сайт с поиском фильмов по названию и длительности. Сохранение выбранных фильмов в личный кабинет, удаление фильмов. Регистрация, авторизация.
+
+## Технологии
+
+* HTML
+* CSS
+* Flexbox
+* Grid
+* Git
+* BEM
+* Nested BEM
+* JavaScript
+* Webpack
+* API
+* React
+
+## Инструкция по запуску проекта
+
+* Клонируйте проект
+* Цстановите зависимости npm install
+* Запустите npm start
+* Локальные адрес http://localhost:3000
+
+## Планы по доработке
+
+* Выложить сайт на сервер
+
+## Макет в Figma
+
+* [Макет](https://www.figma.com/file/x3rMakkGqdmGhCzbyPGLBN/Diploma-(Copy)?type=design&node-id=891%3A3857&t=EqhSxb9mZ1oWDUlO-1)
+
+
